@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Day</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-color: #ffebf3;
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+    }
+    h1 {
+      color: #ff1493;
+      font-size: 2em;
+      margin: 10px 0;
+    }
+    .container {
+      background-color: #fff;
+      border: 5px solid #ff69b4;
+      border-radius: 20px;
+      padding: 20px;
+      display: inline-block;
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+      max-width: 100%;
+      width: 90%;
+      margin: 0 auto;
+    }
+    .buttons {
+      margin-top: 20px;
+    }
+    button {
+      font-size: 1.2em;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 80%;
+      max-width: 200px;
+    }
+    #yesButton {
+      background-color: #ff69b4;
+      color: white;
+    }
+    #noButton {
+      background-color: #ff1493;
+      color: white;
+    }
+    #yesButton:hover, #noButton:hover {
+      background-color: #ff85c1;
+    }
+    .hidden {
+      display: none;
+    }
+    .valentine-img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin: 10px;
+      border-radius: 10px;
+    }
+    .message {
+      font-size: 1.2em;
+      color: #ff1493;
+      margin-top: 20px;
+    }
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5em;
+      }
+      button {
+        font-size: 1em;
+        padding: 8px 16px;
+      }
+      .valentine-img {
+        width: 80px;
+        height: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Will You Be My Valentine?</h1>
+    <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="valentine-img">
+    <img src="https://media.istockphoto.com/id/1296983415/photo/brown-teddy-bear-holding-pink-roses-for-valentines-day.jpg?s=612x612&w=0&k=20&c=fqYrE34MfRYCu9LrxL4AQMOn9l-ODht1kGNacWd7EjI=" alt="Teddy Bear with Roses" class="valentine-img">
+    <img src="https://static.toiimg.com/thumb/msid-89540777,width-400,resizemode-4/89540777.jpg" alt="Hearts and Balloons" class="valentine-img">
+    <div class="buttons">
+      <button id="yesButton">Yes</button>
+      <button id="noButton">No</button>
+    </div>
+    <div id="tryAgainMessage" class="hidden">
+      <h2>Try Again!</h2>
+      <button id="backButton">Go Back</button>
+    </div>
+    <div id="yayMessage" class="hidden">
+      <h2>Yay! Let's eat jajangmyeon later! 🍜</h2>
+    </div>
+  </div>
+
+  <script>
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    const tryAgainMessage = document.getElementById('tryAgainMessage');
+    const yayMessage = document.getElementById('yayMessage');
+    const backButton = document.getElementById('backButton');
+
+    noButton.addEventListener('click', () => {
+      tryAgainMessage.classList.remove('hidden');
+    });
+
+    backButton.addEventListener('click', () => {
+      tryAgainMessage.classList.add('hidden');
+    });
+
+    yesButton.addEventListener('click', () => {
+      yayMessage.classList.remove('hidden');
+      tryAgainMessage.classList.add('hidden');
+    });
+  </script>
+</body>
+</html>

@@ -64,9 +64,15 @@
     .hidden {
       display: none;
     }
+
+    /* Fade-in animation */
     .fade-in {
       opacity: 0;
-      transition: opacity 1.5s ease-in-out;
+      animation: fadeIn 1.5s ease-in-out forwards;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
     }
 
     /* Resized images to fit inside prompt box */
@@ -147,7 +153,7 @@
 
   <div class="container">
     <!-- First Prompt -->
-    <div id="firstPrompt">
+    <div id="firstPrompt" class="fade-in">
       <h1>Will You Be My Valentine?</h1>
       <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="valentine-img">
       <div class="buttons">
@@ -157,7 +163,7 @@
     </div>
 
     <!-- Second Prompt (Forever?) -->
-    <div id="foreverPrompt" class="hidden">
+    <div id="foreverPrompt" class="hidden fade-in">
       <h2>Forever?</h2>
       <img src="https://i.postimg.cc/s2rqdCbH/IMG-9927.jpg" alt="Forever?" class="forever-img">
       <div class="buttons">
@@ -166,8 +172,14 @@
       </div>
     </div>
 
+    <!-- Valentine Forever Message -->
+    <div id="valentineForeverMessage" class="hidden fade-in">
+      <h2>Yay! You’re my Valentine forever and ever! 😘</h2>
+      <img src="https://i.postimg.cc/bJBHHQPc/01-J789-AFPAADN0-FXXJ8-VWE7-ZF4-low-res-branded.jpg" alt="Valentine Forever" class="forever-img">
+    </div>
+
     <!-- Try Again Prompt -->
-    <div id="tryAgainMessage" class="hidden">
+    <div id="tryAgainMessage" class="hidden fade-in">
       <h2>Try Again!</h2>
       <button onclick="nextStep('firstPrompt')">Go Back</button>
     </div>
@@ -177,30 +189,15 @@
   <script>
     function nextStep(stepId) {
       document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
-      document.getElementById(stepId).classList.remove('hidden');
+      const nextDiv = document.getElementById(stepId);
+      nextDiv.classList.remove('hidden');
+      nextDiv.classList.add('fade-in');  // Add fade-in effect
     }
 
     function showTryAgain() {
       document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
       document.getElementById('tryAgainMessage').classList.remove('hidden');
-    }
-
-    function yesEffect(button) {
-      let emoji = button.querySelector('.yes-emoji');
-      emoji.style.animation = 'none';
-      void emoji.offsetWidth;  // Reset animation
-      emoji.style.animation = 'heart-pop 0.6s ease-out';
-      emoji.style.opacity = '1';
-      setTimeout(() => emoji.style.opacity = '0', 600);
-    }
-
-    function noEffect(button) {
-      let emoji = button.querySelector('.no-emoji');
-      emoji.style.animation = 'none';
-      void emoji.offsetWidth;  // Reset animation
-      emoji.style.animation = 'angry-pop 0.6s ease-out';
-      emoji.style.opacity = '1';
-      setTimeout(() => emoji.style.opacity = '0', 600);
+      document.getElementById('tryAgainMessage').classList.add('fade-in');  
     }
   </script>
 </body>

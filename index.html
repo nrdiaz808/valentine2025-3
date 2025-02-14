@@ -42,15 +42,15 @@
       width: 80%;
       max-width: 200px;
     }
-    #yesButton {
+    #yesButton, #yesButton2 {
       background-color: #ff69b4;
       color: white;
     }
-    #noButton {
+    #noButton, #noButton2 {
       background-color: #ff1493;
       color: white;
     }
-    #yesButton:hover, #noButton:hover {
+    #yesButton:hover, #noButton:hover, #yesButton2:hover, #noButton2:hover {
       background-color: #ff85c1;
     }
     .hidden {
@@ -97,8 +97,12 @@
       <h2>Try Again!</h2>
       <button id="backButton">Go Back</button>
     </div>
-    <div id="yayMessage" class="hidden">
-      <h2>Yay! Let's eat jajangmyeon later! 🍜</h2>
+    <div id="foreverPrompt" class="hidden">
+      <h2>Yay! Will you be my valentine forever?</h2>
+      <div class="buttons">
+        <button id="yesButton2">Yes</button>
+        <button id="noButton2">No</button>
+      </div>
     </div>
   </div>
 
@@ -106,21 +110,44 @@
     const yesButton = document.getElementById('yesButton');
     const noButton = document.getElementById('noButton');
     const tryAgainMessage = document.getElementById('tryAgainMessage');
-    const yayMessage = document.getElementById('yayMessage');
+    const foreverPrompt = document.getElementById('foreverPrompt');
     const backButton = document.getElementById('backButton');
+    const yesButton2 = document.getElementById('yesButton2');
+    const noButton2 = document.getElementById('noButton2');
 
+    // Handle first "Yes" button click
+    yesButton.addEventListener('click', () => {
+      foreverPrompt.classList.remove('hidden');
+      tryAgainMessage.classList.add('hidden');
+    });
+
+    // Handle first "No" button click
     noButton.addEventListener('click', () => {
       tryAgainMessage.classList.remove('hidden');
     });
 
+    // Handle "Go Back" button click
     backButton.addEventListener('click', () => {
       tryAgainMessage.classList.add('hidden');
     });
 
-    yesButton.addEventListener('click', () => {
-      yayMessage.classList.remove('hidden');
-      tryAgainMessage.classList.add('hidden');
+    // Handle second "Yes" button click
+    yesButton2.addEventListener('click', () => {
+      alert("Yay! You're my valentine forever! ❤️");
+      resetToStart();
     });
+
+    // Handle second "No" button click
+    noButton2.addEventListener('click', () => {
+      alert("Try again!");
+      resetToStart();
+    });
+
+    // Reset to the original screen
+    function resetToStart() {
+      foreverPrompt.classList.add('hidden');
+      tryAgainMessage.classList.add('hidden');
+    }
   </script>
 </body>
 </html>

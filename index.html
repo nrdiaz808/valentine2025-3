@@ -11,17 +11,12 @@
       text-align: center;
       padding: 20px;
       margin: 0;
-      -webkit-tap-highlight-color: transparent;
       overflow: hidden;
-      position: relative;
-    }
-
-    h1 {
-      color: #ff1493;
-      font-size: 1.8em;
-      margin: 10px 0;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
     }
 
     .container {
@@ -29,11 +24,19 @@
       border: 4px solid #ff69b4;
       border-radius: 20px;
       padding: 20px;
-      box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.5);
       width: 90%;
       max-width: 350px;
       margin: 0 auto;
       display: none;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+
+    h1 {
+      color: #ff1493;
+      font-size: 1.8em;
+      margin: 10px 0;
     }
 
     .buttons {
@@ -42,8 +45,6 @@
       flex-direction: column;
       align-items: center;
       gap: 8px;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
     }
 
     button {
@@ -52,12 +53,12 @@
       border: none;
       border-radius: 10px;
       cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
       width: 100%;
       max-width: 220px;
+      margin-top: 10px;
     }
 
-    .yes, .foodButton {
+    .yes {
       background-color: #ff69b4;
       color: white;
     }
@@ -67,47 +68,34 @@
       color: white;
     }
 
-    button:active {
-      transform: scale(0.95);
+    .try-again {
+      display: none;
+      color: #ff1493;
+      font-size: 1.4em;
+      margin-top: 20px;
+    }
+
+    .try-again-btn {
+      background-color: #ff1493;
+      color: white;
+      border-radius: 10px;
+      padding: 12px;
+      width: 100%;
+      max-width: 220px;
+      margin-top: 10px;
     }
 
     .fade-in {
       opacity: 1 !important;
     }
 
-    .final-img {
-      width: 90%;
-      max-width: 300px;
-      margin-top: 20px;
-      border-radius: 10px;
-    }
-
-    .hearts {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: #ff69b4;
-      border-radius: 50%;
-      opacity: 0.7;
-      animation: float 3s linear infinite;
-    }
-
-    @keyframes float {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh);
-        opacity: 0;
-      }
-    }
-
-    .food-img {
+    img {
       width: 80%;
       max-width: 270px;
       margin-top: 15px;
       border-radius: 10px;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
     }
   </style>
 </head>
@@ -115,100 +103,94 @@
 
   <div class="container" id="step1">
     <h1>Will you be my valentine?</h1>
-    <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="final-img">
+    <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear">
     <div class="buttons">
       <button class="yes" onclick="nextStep('step2')">Yes</button>
-      <button class="no" onclick="restart()">No</button>
+      <button class="no" onclick="showTryAgain()">No</button>
     </div>
   </div>
 
   <div class="container" id="step2">
     <h1>Will you be my valentine forever?</h1>
-    <img src="https://i.postimg.cc/s2rqdCbH/IMG-9927.jpg" alt="Valentine Forever" class="final-img">
+    <img src="https://i.postimg.cc/s2rqdCbH/IMG-9927.jpg" alt="Valentine Forever">
     <div class="buttons">
-      <button class="yes" onclick="nextStep('step3', true)">Yes</button>
-      <button class="no" onclick="restart()">No</button>
+      <button class="yes" onclick="nextStep('step3')">Yes</button>
+      <button class="no" onclick="showTryAgain()">No</button>
     </div>
   </div>
 
   <div class="container" id="step3">
     <h1>Yay! You're my valentine forever and ever!</h1>
-    <img src="https://i.postimg.cc/bJBHHQPc/01-J789-AFPAADN0-FXXJ8-VWE7-ZF4-low-res-branded.jpg" alt="Valentine's Celebration" class="final-img">
+    <img src="https://i.postimg.cc/bJBHHQPc/01-J789-AFPAADN0-FXXJ8-VWE7-ZF4-low-res-branded.jpg" alt="Valentine's Celebration">
   </div>
 
   <div class="container" id="step4">
     <h1>Let's eat:</h1>
-    <img src="https://i.postimg.cc/yYdmk3XF/01-JFR2-DDBKFAD0-HG70-B9-G8-XQ39-low-res-branded.jpg" alt="Food Image" class="food-img">
+    <img src="https://i.postimg.cc/yYdmk3XF/01-JFR2-DDBKFAD0-HG70-B9-G8-XQ39-low-res-branded.jpg" alt="Food Image">
     <div class="buttons">
-      <button class="foodButton" onclick="nextStep('step5')">KBBQ</button>
-      <button class="foodButton" onclick="nextStep('step5')">Jajangmyeon</button>
-      <button class="foodButton" onclick="nextStep('step5')">IDC, let's just eat</button>
+      <button class="yes" onclick="nextStep('step5')">KBBQ</button>
+      <button class="yes" onclick="nextStep('step5')">Jajangmyeon</button>
+      <button class="yes" onclick="nextStep('step5')">IDC, let's just eat</button>
     </div>
   </div>
 
   <div class="container" id="step5">
     <h1>Yummy!</h1>
-    <img src="https://i.postimg.cc/HkFVWVBs/IMG-9301.jpg" alt="Food" class="final-img">
+    <img src="https://i.postimg.cc/HkFVWVBs/IMG-9301.jpg" alt="Food">
   </div>
 
   <div class="container" id="step6">
     <h1>I love you! Happy Valentine’s Day ❤️</h1>
-    <img src="https://i.postimg.cc/Xv85qFQb/IMG-1829.jpg" alt="I Love You" class="final-img">
+    <img src="https://i.postimg.cc/Xv85qFQb/IMG-1829.jpg" alt="I Love You">
+  </div>
+
+  <div class="container" id="tryAgainContainer">
+    <h1 class="try-again">Try Again!</h1>
+    <button class="try-again-btn" onclick="restart()">Go back to the start</button>
   </div>
 
   <script>
     let steps = ["step1", "step2", "step3", "step4", "step5", "step6"];
     let currentStep = 0;
 
-    function nextStep(step, delayNext = false) {
+    function nextStep(step) {
       document.getElementById(steps[currentStep]).style.display = "none"; 
       currentStep = steps.indexOf(step);
-      document.getElementById(step).style.display = "block";
+      let nextContainer = document.getElementById(step);
+      nextContainer.style.display = "block";
 
-      let title = document.querySelector(`#${step} h1`);
-      let buttons = document.querySelector(`#${step} .buttons`);
-
-      title.style.opacity = "0";
       setTimeout(() => {
-        title.classList.add("fade-in");
-        if (buttons) buttons.classList.add("fade-in");
-      }, 200); 
+        nextContainer.classList.add("fade-in");
+        let img = nextContainer.querySelector("img");
+        if (img) img.style.opacity = "1";
+      }, 100); 
 
-      generateHearts();
-
-      if (delayNext) {
-        setTimeout(() => nextStep("step4"), 4000);
+      if (step === "step3") {
+        setTimeout(() => nextStep("step4"), 3000); 
       }
 
       if (step === "step5") {
-        setTimeout(() => nextStep("step6"), 4000); // 2 seconds delay added for Yummy!
+        setTimeout(() => nextStep("step6"), 3000); 
       }
     }
 
     function restart() {
       document.getElementById(steps[currentStep]).style.display = "none";
+      document.getElementById("tryAgainContainer").style.display = "none"; 
       currentStep = 0;
       document.getElementById("step1").style.display = "block";
+      setTimeout(() => document.getElementById("step1").classList.add("fade-in"), 100);
     }
 
-    function generateHearts() {
-      for (let i = 0; i < 15; i++) {
-        let heart = document.createElement("div");
-        heart.classList.add("hearts");
-        document.body.appendChild(heart);
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = Math.random() * 2 + 3 + "s";
-
-        setTimeout(() => heart.remove(), 3000);
-      }
+    function showTryAgain() {
+      document.getElementById(steps[currentStep]).style.display = "none";
+      document.getElementById("tryAgainContainer").style.display = "block";
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("step1").style.display = "block";
-      setTimeout(() => {
-        document.querySelector("#step1 h1").classList.add("fade-in");
-        document.querySelector("#step1 .buttons").classList.add("fade-in");
-      }, 200);
+      let firstContainer = document.getElementById("step1");
+      firstContainer.style.display = "block";
+      setTimeout(() => firstContainer.classList.add("fade-in"), 100);
     });
   </script>
 

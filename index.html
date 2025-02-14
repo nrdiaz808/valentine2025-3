@@ -179,7 +179,7 @@
 
     yesButton2.addEventListener('click', () => {
       showOnly(valentineForeverMessage);
-      setTimeout(() => showOnly(foodPrompt), 2000); // Transition to food prompt after 2 seconds
+      setTimeout(() => showOnly(foodPrompt), 4000); // 4-second delay instead of 2
     });
 
     noButton2.addEventListener('click', () => {
@@ -192,8 +192,8 @@
         showOnly(yummyMessage);
         setTimeout(() => {
           showOnly(loveMessage);
-          setTimeout(() => loveMessage.style.opacity = "1", 200); // Smooth fade-in
-        }, 1500);
+          setTimeout(() => loveMessage.style.opacity = "1", 200);
+        }, 2500); // 2.5-second delay instead of 1.5
       });
     });
   </script>

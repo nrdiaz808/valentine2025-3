@@ -111,32 +111,22 @@
       }
     }
 
-    .food-img {
-      width: 80%;
-      max-width: 270px;
-      margin-top: 15px;
+    /* For Try Again */
+    .try-again {
+      color: #ff1493;
+      font-size: 1.2em;
+      margin-top: 20px;
+    }
+
+    .try-again-btn {
+      background-color: #ff1493;
+      color: white;
       border-radius: 10px;
+      padding: 12px;
+      width: 100%;
+      max-width: 220px;
     }
 
-    /* Ensure proper scaling and layout on small devices */
-    @media screen and (max-width: 768px) {
-      h1 {
-        font-size: 1.5em;
-      }
-
-      .container {
-        width: 80%;
-      }
-
-      button {
-        font-size: 1em;
-        padding: 10px;
-      }
-
-      .food-img, .final-img {
-        max-width: 260px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -146,7 +136,7 @@
     <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="final-img">
     <div class="buttons">
       <button class="yes" onclick="nextStep('step2')">Yes</button>
-      <button class="no" onclick="restart()">No</button>
+      <button class="no" onclick="showTryAgain()">No</button>
     </div>
   </div>
 
@@ -155,7 +145,7 @@
     <img src="https://i.postimg.cc/s2rqdCbH/IMG-9927.jpg" alt="Valentine Forever" class="final-img">
     <div class="buttons">
       <button class="yes" onclick="nextStep('step3', true)">Yes</button>
-      <button class="no" onclick="restart()">No</button>
+      <button class="no" onclick="showTryAgain()">No</button>
     </div>
   </div>
 
@@ -184,9 +174,9 @@
     <img src="https://i.postimg.cc/Xv85qFQb/IMG-1829.jpg" alt="I Love You" class="final-img">
   </div>
 
-  <div class="container" id="tryAgain">
-    <h1>Try Again!</h1>
-    <button class="yes" onclick="restart()">Start Over</button>
+  <div class="container" id="tryAgainContainer" style="display: none;">
+    <h1 class="try-again">Try Again!</h1>
+    <button class="try-again-btn" onclick="restart()">Go back to the start</button>
   </div>
 
   <script>
@@ -219,17 +209,17 @@
     }
 
     function restart() {
-      // Hide all steps
-      steps.forEach(step => {
-        document.getElementById(step).style.display = "none";
-      });
+      // Hide all steps and show the first step again
+      document.getElementById(steps[currentStep]).style.display = "none";
+      document.getElementById("tryAgainContainer").style.display = "none"; // Hide try again message
+      currentStep = 0;
+      document.getElementById("step1").style.display = "block";
+    }
 
-      // Show Try Again screen
-      document.getElementById("tryAgain").style.display = "block";
-
-      // Reset hearts (optional)
-      const hearts = document.querySelectorAll('.hearts');
-      hearts.forEach(heart => heart.remove());
+    function showTryAgain() {
+      // Hide the current prompt and show the try again message
+      document.getElementById(steps[currentStep]).style.display = "none";
+      document.getElementById("tryAgainContainer").style.display = "block";
     }
 
     function generateHearts() {

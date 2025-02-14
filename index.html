@@ -67,12 +67,16 @@
       opacity: 0;
       transition: opacity 1.5s ease-in-out;
     }
-    .valentine-img, .final-img, .forever-img, .food-img, .yummy-img, .valentine-forever-img {
+    .valentine-img, .final-img, .forever-img, .yummy-img, .valentine-forever-img {
       width: 90%;
       max-width: 300px;
       height: auto;
       margin: 10px;
       border-radius: 10px;
+    }
+    .food-img {
+      width: 80%;
+      max-width: 250px;
     }
     .floating {
       position: fixed;
@@ -97,7 +101,7 @@
 </head>
 <body>
   <div class="container">
-    <div id="firstPrompt" class="fade-in">
+    <div id="firstPrompt">
       <h1>Will You Be My Valentine?</h1>
       <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="valentine-img">
       <div class="buttons">

@@ -181,6 +181,7 @@
     });
 
     document.getElementById('noButton2').addEventListener('click', () => showOnly(document.getElementById('tryAgainMessage2')));
+    document.getElementById('backButton2').addEventListener('click', () => showOnly(document.getElementById('firstPrompt'))); // FIXED
 
     document.querySelectorAll('.foodButton').forEach(button => {
       button.addEventListener('click', () => {
@@ -194,8 +195,6 @@
       emoji.textContent = Math.random() > 0.5 ? "💘" : "💐";
       emoji.classList.add("floating");
       emoji.style.left = Math.random() * 100 + "vw";
-      emoji.style.animationDuration = Math.random() * 3 + 3 + "s";
-      emoji.style.fontSize = Math.random() * 1.5 + 2.5 + "rem"; 
       document.body.appendChild(emoji);
       setTimeout(() => emoji.remove(), 6000);
     }

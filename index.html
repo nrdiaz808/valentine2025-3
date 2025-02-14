@@ -102,6 +102,13 @@
         opacity: 0;
       }
     }
+
+    .food-img {
+      width: 80%;
+      max-width: 270px;
+      margin-top: 15px;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
@@ -117,6 +124,7 @@
 
   <div class="container" id="step2">
     <h1>Will you be my valentine forever?</h1>
+    <img src="https://i.postimg.cc/s2rqdCbH/IMG-9927.jpg" alt="Valentine Forever" class="final-img">
     <div class="buttons">
       <button class="yes" onclick="nextStep('step3', true)">Yes</button>
       <button class="no" onclick="restart()">No</button>
@@ -125,11 +133,12 @@
 
   <div class="container" id="step3">
     <h1>Yay! You're my valentine forever and ever!</h1>
+    <img src="https://i.postimg.cc/bJBHHQPc/01-J789-AFPAADN0-FXXJ8-VWE7-ZF4-low-res-branded.jpg" alt="Valentine's Celebration" class="final-img">
   </div>
 
   <div class="container" id="step4">
     <h1>Let's eat:</h1>
-    <img src="https://i.postimg.cc/yYdmk3XF/01-JFR2-DDBKFAD0-HG70-B9-G8-XQ39-low-res-branded.jpg" alt="Food Image" class="final-img">
+    <img src="https://i.postimg.cc/yYdmk3XF/01-JFR2-DDBKFAD0-HG70-B9-G8-XQ39-low-res-branded.jpg" alt="Food Image" class="food-img">
     <div class="buttons">
       <button class="foodButton" onclick="nextStep('step5')">KBBQ</button>
       <button class="foodButton" onclick="nextStep('step5')">Jajangmyeon</button>
@@ -172,7 +181,7 @@
       }
 
       if (step === "step5") {
-        setTimeout(() => nextStep("step6"), 2000);
+        setTimeout(() => nextStep("step6"), 4000); // 2 seconds delay added for Yummy!
       }
     }
 

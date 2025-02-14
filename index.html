@@ -102,13 +102,6 @@
         opacity: 0;
       }
     }
-
-    .food-img {
-      width: 80%;
-      max-width: 270px;
-      margin-top: 15px;
-      border-radius: 10px;
-    }
   </style>
 </head>
 <body>
@@ -136,7 +129,7 @@
 
   <div class="container" id="step4">
     <h1>Let's eat:</h1>
-    <img src="https://i.postimg.cc/yYdmk3XF/01-JFR2-DDBKFAD0-HG70-B9-G8-XQ39-low-res-branded.jpg" alt="Food Image" class="food-img">
+    <img src="https://i.postimg.cc/yYdmk3XF/01-JFR2-DDBKFAD0-HG70-B9-G8-XQ39-low-res-branded.jpg" alt="Food Image" class="final-img">
     <div class="buttons">
       <button class="foodButton" onclick="nextStep('step5')">KBBQ</button>
       <button class="foodButton" onclick="nextStep('step5')">Jajangmyeon</button>
@@ -179,7 +172,7 @@
       }
 
       if (step === "step5") {
-        setTimeout(() => nextStep("step6"), 4000); // 2 seconds delay added for Yummy!
+        setTimeout(() => nextStep("step6"), 2000);
       }
     }
 

@@ -81,6 +81,21 @@
       width: 80%;
       max-width: 250px;
     }
+    /* Animation for Large Yes and No Reactions */
+    .reaction {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 8rem;
+      opacity: 0;
+      animation: pop 1s ease-in-out forwards;
+    }
+    @keyframes pop {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+    }
     /* Floating Heart and Flower Animation */
     .floating {
       position: fixed;
@@ -161,43 +176,24 @@
         div.classList.add('hidden');
         div.classList.remove('show');
       });
-
       element.classList.remove('hidden');
       setTimeout(() => element.classList.add('show'), 50);
     }
 
-    document.getElementById('yesButton').addEventListener('click', () => showOnly(document.getElementById('foreverPrompt')));
-    document.getElementById('noButton').addEventListener('click', () => showOnly(document.getElementById('tryAgainMessage')));
-    document.getElementById('backButton').addEventListener('click', () => showOnly(document.getElementById('firstPrompt')));
-
-    document.getElementById('yesButton2').addEventListener('click', () => {
-      showOnly(document.getElementById('valentineForeverMessage'));
-      setTimeout(() => showOnly(document.getElementById('foodPrompt')), 3000);
-    });
-
-    document.getElementById('noButton2').addEventListener('click', () => {
-      alert("Try again!");
-      showOnly(document.getElementById('firstPrompt'));
-    });
-
-    document.querySelectorAll('.foodButton').forEach(button => {
-      button.addEventListener('click', () => {
-        showOnly(document.getElementById('yummyMessage'));
-        setTimeout(() => showOnly(document.getElementById('loveMessage')), 2500);
-      });
-    });
-
-    function createFloatingEmoji() {
-      const emoji = document.createElement("div");
-      emoji.textContent = Math.random() > 0.5 ? "💘" : "💐";
-      emoji.classList.add("floating");
-      emoji.style.left = Math.random() * 100 + "vw";
-      emoji.style.animationDuration = Math.random() * 3 + 3 + "s";
-      document.body.appendChild(emoji);
-      setTimeout(() => emoji.remove(), 6000);
+    function showReaction(emoji, nextStep) {
+      const reaction = document.createElement("div");
+      reaction.textContent = emoji;
+      reaction.classList.add("reaction");
+      document.body.appendChild(reaction);
+      setTimeout(() => {
+        reaction.remove();
+        if (nextStep) nextStep();
+      }, 1000);
     }
 
-    setInterval(createFloatingEmoji, 400);
+    document.getElementById('yesButton').addEventListener('click', () => showReaction("💝", () => showOnly(document.getElementById('foreverPrompt'))));
+    document.getElementById('noButton').addEventListener('click', () => showReaction("😡", () => showOnly(document.getElementById('tryAgainMessage'))));
+    document.getElementById('backButton').addEventListener('click', () => showOnly(document.getElementById('firstPrompt')));
   </script>
 </body>
 </html>

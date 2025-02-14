@@ -80,6 +80,8 @@
       max-width: 300px;
       margin-top: 20px;
       border-radius: 10px;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
     }
 
     .hearts {
@@ -167,10 +169,13 @@
 
       let title = document.querySelector(`#${step} h1`);
       let buttons = document.querySelector(`#${step} .buttons`);
+      let img = document.querySelector(`#${step} .final-img`);
 
       title.style.opacity = "0";
+      img.style.opacity = "0";
       setTimeout(() => {
         title.classList.add("fade-in");
+        img.classList.add("fade-in");
         if (buttons) buttons.classList.add("fade-in");
       }, 200); 
 
@@ -208,6 +213,7 @@
       setTimeout(() => {
         document.querySelector("#step1 h1").classList.add("fade-in");
         document.querySelector("#step1 .buttons").classList.add("fade-in");
+        document.querySelector("#step1 .final-img").classList.add("fade-in");
       }, 200);
     });
   </script>

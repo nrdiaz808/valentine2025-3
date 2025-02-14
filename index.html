@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Valentine's Day</title>
   <style>
-    /* General Body Styles */
     body {
       font-family: 'Comic Sans MS', cursive, sans-serif;
       background-color: #ffebf3;
@@ -15,11 +14,6 @@
       -webkit-tap-highlight-color: transparent;
       overflow: hidden;
       position: relative;
-      height: 100vh; /* Ensure full screen on mobile Safari */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
     }
 
     h1 {
@@ -35,12 +29,11 @@
       border: 4px solid #ff69b4;
       border-radius: 20px;
       padding: 20px;
-      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.5);
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
       width: 90%;
       max-width: 350px;
       margin: 0 auto;
       display: none;
-      transition: all 0.3s ease-in-out;
     }
 
     .buttons {
@@ -59,7 +52,7 @@
       border: none;
       border-radius: 10px;
       cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s ease-in-out;
+      transition: background-color 0.3s, transform 0.2s;
       width: 100%;
       max-width: 220px;
     }
@@ -87,7 +80,6 @@
       max-width: 300px;
       margin-top: 20px;
       border-radius: 10px;
-      transition: all 0.5s ease-in-out;
     }
 
     .hearts {
@@ -111,22 +103,12 @@
       }
     }
 
-    /* For Try Again */
-    .try-again {
-      color: #ff1493;
-      font-size: 1.2em;
-      margin-top: 20px;
-    }
-
-    .try-again-btn {
-      background-color: #ff1493;
-      color: white;
+    .food-img {
+      width: 80%;
+      max-width: 270px;
+      margin-top: 15px;
       border-radius: 10px;
-      padding: 12px;
-      width: 100%;
-      max-width: 220px;
     }
-
   </style>
 </head>
 <body>
@@ -136,7 +118,7 @@
     <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="final-img">
     <div class="buttons">
       <button class="yes" onclick="nextStep('step2')">Yes</button>
-      <button class="no" onclick="showTryAgain()">No</button>
+      <button class="no" onclick="restart()">No</button>
     </div>
   </div>
 
@@ -145,7 +127,7 @@
     <img src="https://i.postimg.cc/s2rqdCbH/IMG-9927.jpg" alt="Valentine Forever" class="final-img">
     <div class="buttons">
       <button class="yes" onclick="nextStep('step3', true)">Yes</button>
-      <button class="no" onclick="showTryAgain()">No</button>
+      <button class="no" onclick="restart()">No</button>
     </div>
   </div>
 
@@ -172,11 +154,6 @@
   <div class="container" id="step6">
     <h1>I love you! Happy Valentine’s Day ❤️</h1>
     <img src="https://i.postimg.cc/Xv85qFQb/IMG-1829.jpg" alt="I Love You" class="final-img">
-  </div>
-
-  <div class="container" id="tryAgainContainer" style="display: none;">
-    <h1 class="try-again">Try Again!</h1>
-    <button class="try-again-btn" onclick="restart()">Go back to the start</button>
   </div>
 
   <script>
@@ -209,17 +186,9 @@
     }
 
     function restart() {
-      // Hide all steps and show the first step again
       document.getElementById(steps[currentStep]).style.display = "none";
-      document.getElementById("tryAgainContainer").style.display = "none"; // Hide try again message
       currentStep = 0;
       document.getElementById("step1").style.display = "block";
-    }
-
-    function showTryAgain() {
-      // Hide the current prompt and show the try again message
-      document.getElementById(steps[currentStep]).style.display = "none";
-      document.getElementById("tryAgainContainer").style.display = "block";
     }
 
     function generateHearts() {

@@ -11,212 +11,190 @@
       text-align: center;
       padding: 20px;
       margin: 0;
-      -webkit-tap-highlight-color: transparent;
-      overflow: hidden;
-      position: relative;
     }
-
     h1 {
       color: #ff1493;
-      font-size: 1.8em;
+      font-size: 2em;
       margin: 10px 0;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
     }
-
     .container {
       background-color: #fff;
-      border: 4px solid #ff69b4;
+      border: 5px solid #ff69b4;
       border-radius: 20px;
       padding: 20px;
-      box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+      display: inline-block;
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+      max-width: 100%;
       width: 90%;
-      max-width: 350px;
       margin: 0 auto;
-      display: none;
     }
-
     .buttons {
-      margin-top: 15px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
+      margin-top: 20px;
+      display: none;
+      transition: opacity 1s ease;
     }
-
     button {
-      font-size: 1.1em;
-      padding: 12px;
+      font-size: 1.2em;
+      padding: 10px 20px;
+      margin: 10px;
       border: none;
       border-radius: 10px;
       cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
-      width: 100%;
-      max-width: 220px;
+      transition: background-color 0.3s;
+      width: 80%;
+      max-width: 200px;
     }
-
-    .yes, .foodButton {
+    #yesButton, #yesButton2 {
       background-color: #ff69b4;
       color: white;
     }
-
-    .no {
+    #noButton, #noButton2 {
       background-color: #ff1493;
       color: white;
     }
-
-    button:active {
-      transform: scale(0.95);
+    #yesButton:hover, #noButton:hover, #yesButton2:hover, #noButton2:hover {
+      background-color: #ff85c1;
     }
-
-    .fade-in {
-      opacity: 1 !important;
+    .hidden {
+      display: none;
     }
-
-    .final-img {
-      width: 90%;
-      max-width: 300px;
+    .valentine-img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      margin: 10px 0;
+      border-radius: 10px;
+      transition: opacity 1s ease;
+    }
+    .message {
+      font-size: 1.2em;
+      color: #ff1493;
       margin-top: 20px;
-      border-radius: 10px;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
+      transition: opacity 1s ease;
     }
-
-    .hearts {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: #ff69b4;
-      border-radius: 50%;
-      opacity: 0.7;
-      animation: float 3s linear infinite;
-    }
-
-    @keyframes float {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5em;
       }
-      100% {
-        transform: translateY(-100vh);
-        opacity: 0;
+      button {
+        font-size: 1em;
+        padding: 8px 16px;
       }
-    }
-
-    .food-img {
-      width: 80%;
-      max-width: 270px;
-      margin-top: 15px;
-      border-radius: 10px;
+      .valentine-img {
+        width: 80%;
+        height: auto;
+      }
     }
   </style>
 </head>
 <body>
-
-  <div class="container" id="step1">
-    <h1>Will you be my valentine?</h1>
-    <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="final-img">
-    <div class="buttons">
-      <button class="yes" onclick="nextStep('step2')">Yes</button>
-      <button class="no" onclick="restart()">No</button>
+  <div class="container">
+    <h1>Will You Be My Valentine?</h1>
+    <img id="valentineImage1" src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="valentine-img">
+    <div class="buttons" id="buttons1">
+      <button id="yesButton">Yes</button>
+      <button id="noButton">No</button>
     </div>
-  </div>
 
-  <div class="container" id="step2">
-    <h1>Will you be my valentine forever?</h1>
-    <img src="https://i.postimg.cc/s2rqdCbH/IMG-9927.jpg" alt="Valentine Forever" class="final-img">
-    <div class="buttons">
-      <button class="yes" onclick="nextStep('step3', true)">Yes</button>
-      <button class="no" onclick="restart()">No</button>
+    <div id="foreverPrompt" class="hidden">
+      <h2>Will you be my valentine forever?</h2>
+      <div class="buttons">
+        <button id="yesButton2">Yes</button>
+        <button id="noButton2">No</button>
+      </div>
     </div>
-  </div>
 
-  <div class="container" id="step3">
-    <h1>Yay! You're my valentine forever and ever!</h1>
-    <img src="https://i.postimg.cc/bJBHHQPc/01-J789-AFPAADN0-FXXJ8-VWE7-ZF4-low-res-branded.jpg" alt="Valentine's Celebration" class="final-img">
-  </div>
-
-  <div class="container" id="step4">
-    <h1>Let's eat:</h1>
-    <img src="https://i.postimg.cc/yYdmk3XF/01-JFR2-DDBKFAD0-HG70-B9-G8-XQ39-low-res-branded.jpg" alt="Food Image" class="food-img">
-    <div class="buttons">
-      <button class="foodButton" onclick="nextStep('step5')">KBBQ</button>
-      <button class="foodButton" onclick="nextStep('step5')">Jajangmyeon</button>
-      <button class="foodButton" onclick="nextStep('step5')">IDC, let's just eat</button>
+    <div id="letsEatPrompt" class="hidden">
+      <h2>Let's eat!</h2>
+      <div class="buttons">
+        <button id="kbbqButton">KBBQ</button>
+        <button id="jajangmyeonButton">Jajangmyeon</button>
+        <button id="idcButton">IDK, let's just eat</button>
+      </div>
+      <img src="https://i.postimg.cc/yYdmk3XF/01-JFR2-DDBKFAD0-HG70-B9-G8-XQ39-low-res-branded.jpg" alt="Food" class="valentine-img">
     </div>
-  </div>
 
-  <div class="container" id="step5">
-    <h1>Yummy!</h1>
-    <img src="https://i.postimg.cc/HkFVWVBs/IMG-9301.jpg" alt="Food" class="final-img">
-  </div>
+    <div id="yummyPrompt" class="hidden">
+      <h2>Yummy!</h2>
+      <img src="https://i.postimg.cc/HkFVWVBs/IMG-9301.jpg" alt="Yummy Food" class="valentine-img">
+    </div>
 
-  <div class="container" id="step6">
-    <h1>I love you! Happy Valentine’s Day ❤️</h1>
-    <img src="https://i.postimg.cc/Xv85qFQb/IMG-1829.jpg" alt="I Love You" class="final-img">
+    <div id="finalPrompt" class="hidden">
+      <h2>I love you! Happy Valentine's Day ❤️</h2>
+      <img src="https://i.postimg.cc/Xv85qFQb/IMG-1829.jpg" alt="I Love You" class="valentine-img">
+      <p>Happy Valentine’s Day!</p>
+    </div>
   </div>
 
   <script>
-    let steps = ["step1", "step2", "step3", "step4", "step5", "step6"];
-    let currentStep = 0;
-
-    function nextStep(step, delayNext = false) {
-      document.getElementById(steps[currentStep]).style.display = "none"; 
-      currentStep = steps.indexOf(step);
-      document.getElementById(step).style.display = "block";
-
-      let title = document.querySelector(`#${step} h1`);
-      let buttons = document.querySelector(`#${step} .buttons`);
-      let img = document.querySelector(`#${step} .final-img`);
-
-      title.style.opacity = "0";
-      img.style.opacity = "0";
-      setTimeout(() => {
-        title.classList.add("fade-in");
-        img.classList.add("fade-in");
-        if (buttons) buttons.classList.add("fade-in");
-      }, 200); 
-
-      generateHearts();
-
-      if (delayNext) {
-        setTimeout(() => nextStep("step4"), 4000);
-      }
-
-      if (step === "step5") {
-        setTimeout(() => nextStep("step6"), 4000); // 2 seconds delay added for Yummy!
-      }
-    }
-
-    function restart() {
-      document.getElementById(steps[currentStep]).style.display = "none";
-      currentStep = 0;
-      document.getElementById("step1").style.display = "block";
-    }
-
-    function generateHearts() {
-      for (let i = 0; i < 15; i++) {
-        let heart = document.createElement("div");
-        heart.classList.add("hearts");
-        document.body.appendChild(heart);
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = Math.random() * 2 + 3 + "s";
-
-        setTimeout(() => heart.remove(), 3000);
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("step1").style.display = "block";
-      setTimeout(() => {
-        document.querySelector("#step1 h1").classList.add("fade-in");
-        document.querySelector("#step1 .buttons").classList.add("fade-in");
-        document.querySelector("#step1 .final-img").classList.add("fade-in");
-      }, 200);
+    // Handle first "Yes" button click
+    document.getElementById('yesButton').addEventListener('click', function() {
+      transitionToNext('foreverPrompt', 'buttons1');
     });
+
+    // Handle first "No" button click
+    document.getElementById('noButton').addEventListener('click', function() {
+      alert("Try again!");
+      resetToStart();
+    });
+
+    // Handle second "Yes" button click (Forever)
+    document.getElementById('yesButton2').addEventListener('click', function() {
+      setTimeout(function() {
+        transitionToNext('letsEatPrompt', 'foreverPrompt');
+      }, 1000);
+    });
+
+    // Handle second "No" button click (Forever)
+    document.getElementById('noButton2').addEventListener('click', function() {
+      alert("Try again!");
+      resetToStart();
+    });
+
+    // Handle KBBQ, Jajangmyeon, IDK button click
+    document.getElementById('kbbqButton').addEventListener('click', function() {
+      setTimeout(function() {
+        transitionToNext('yummyPrompt', 'letsEatPrompt');
+      }, 1000);
+    });
+    document.getElementById('jajangmyeonButton').addEventListener('click', function() {
+      setTimeout(function() {
+        transitionToNext('yummyPrompt', 'letsEatPrompt');
+      }, 1000);
+    });
+    document.getElementById('idcButton').addEventListener('click', function() {
+      setTimeout(function() {
+        transitionToNext('yummyPrompt', 'letsEatPrompt');
+      }, 1000);
+    });
+
+    // Transition to the final "I love you!" message
+    document.getElementById('yummyPrompt').addEventListener('transitionend', function() {
+      setTimeout(function() {
+        transitionToNext('finalPrompt', 'yummyPrompt');
+      }, 2000);
+    });
+
+    // Reset to the start
+    function resetToStart() {
+      document.getElementById('buttons1').style.display = 'block';
+      document.getElementById('valentineImage1').style.opacity = '1';
+      document.getElementById('foreverPrompt').classList.add('hidden');
+      document.getElementById('letsEatPrompt').classList.add('hidden');
+      document.getElementById('yummyPrompt').classList.add('hidden');
+      document.getElementById('finalPrompt').classList.add('hidden');
+      document.getElementById('valentineImage1').style.opacity = '0';
+    }
+
+    // Transition to the next prompt
+    function transitionToNext(nextPromptId, currentPromptId) {
+      document.getElementById(currentPromptId).classList.add('hidden');
+      document.getElementById(nextPromptId).classList.remove('hidden');
+      document.getElementById(nextPromptId).style.opacity = '0';
+      setTimeout(function() {
+        document.getElementById(nextPromptId).style.opacity = '1';
+      }, 50);
+    }
   </script>
-  
 </body>
 </html>

@@ -162,7 +162,7 @@
     let steps = ["step1", "step2", "step3", "step4", "step5", "step6"];
     let currentStep = 0;
 
-    function nextStep(step, delayNext = false) {
+    function nextStep(step) {
       // Hide the current step container
       document.getElementById(steps[currentStep]).style.display = "none"; 
       currentStep = steps.indexOf(step);
@@ -185,7 +185,7 @@
 
       generateHearts(); // Hearts animation
 
-      // Transition to next step
+      // Special transition for "Yummy!" to "I love you!"
       if (step === "step5") {
         setTimeout(() => nextStep("step6"), 4000); // 4 seconds for transition after "Yummy!"
       }

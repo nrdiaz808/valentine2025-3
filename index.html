@@ -17,7 +17,7 @@
     }
     h1, h2 {
       color: #ff1493;
-      font-size: 1.8em;
+      font-size: 1.5em;
       margin: 10px 0;
     }
     .container {
@@ -69,10 +69,19 @@
       transition: opacity 1.5s ease-in-out;
     }
 
+    /* Resized images to fit inside prompt box */
+    .valentine-img, .forever-img, .final-img {
+      width: 90%;
+      max-width: 200px;
+      height: auto;
+      margin-top: 10px;
+      border-radius: 10px;
+    }
+
     /* FLOATING HEARTS ANIMATION 💖💐 */
     .floating-heart {
       position: absolute;
-      font-size: 1.5em;
+      font-size: 1.3em;
       opacity: 0.8;
       animation: float 6s linear infinite;
     }
@@ -140,15 +149,42 @@
     <!-- First Prompt -->
     <div id="firstPrompt">
       <h1>Will You Be My Valentine?</h1>
-      <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear">
+      <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="valentine-img">
       <div class="buttons">
-        <button id="yesButton" onclick="yesEffect(this)">Yes <span class="yes-emoji">💘</span></button>
-        <button id="noButton" onclick="noEffect(this)">No <span class="no-emoji">😡</span></button>
+        <button id="yesButton" onclick="nextStep('foreverPrompt')">Yes <span class="yes-emoji">💘</span></button>
+        <button id="noButton" onclick="showTryAgain()">No <span class="no-emoji">😡</span></button>
       </div>
     </div>
+
+    <!-- Second Prompt (Forever?) -->
+    <div id="foreverPrompt" class="hidden">
+      <h2>Forever?</h2>
+      <img src="https://i.postimg.cc/s2rqdCbH/IMG-9927.jpg" alt="Forever?" class="forever-img">
+      <div class="buttons">
+        <button id="yesButton2" onclick="nextStep('valentineForeverMessage')">Yes</button>
+        <button id="noButton2" onclick="showTryAgain()">No</button>
+      </div>
+    </div>
+
+    <!-- Try Again Prompt -->
+    <div id="tryAgainMessage" class="hidden">
+      <h2>Try Again!</h2>
+      <button onclick="nextStep('firstPrompt')">Go Back</button>
+    </div>
+
   </div>
 
   <script>
+    function nextStep(stepId) {
+      document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
+      document.getElementById(stepId).classList.remove('hidden');
+    }
+
+    function showTryAgain() {
+      document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
+      document.getElementById('tryAgainMessage').classList.remove('hidden');
+    }
+
     function yesEffect(button) {
       let emoji = button.querySelector('.yes-emoji');
       emoji.style.animation = 'none';

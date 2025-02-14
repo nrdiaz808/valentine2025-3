@@ -13,7 +13,7 @@
       margin: 0;
       -webkit-tap-highlight-color: transparent;
     }
-    h1 {
+    h1, h2 {
       color: #ff1493;
       font-size: 1.8em;
       margin: 10px 0;
@@ -44,7 +44,7 @@
       border: none;
       border-radius: 10px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s, transform 0.2s;
       width: 100%;
       max-width: 220px;
     }
@@ -74,6 +74,9 @@
       max-width: 300px;
       margin-top: 20px;
       border-radius: 10px;
+    }
+    .hidden {
+      display: none;
     }
   </style>
 </head>
@@ -111,11 +114,16 @@
 
   <div class="container" id="step5">
     <h1>Yummy!</h1>
+  </div>
+
+  <div class="container" id="step6">
+    <h1>I love you ❤️</h1>
     <img src="https://i.postimg.cc/Xv85qFQb/IMG-1829.jpg" alt="I Love You" class="final-img">
+    <h2>Happy Valentine’s Day!</h2>
   </div>
 
   <script>
-    let steps = ["step1", "step2", "step3", "step4", "step5"];
+    let steps = ["step1", "step2", "step3", "step4", "step5", "step6"];
     let currentStep = 0;
 
     function nextStep(step, delayNext = false) {
@@ -131,6 +139,10 @@
 
       if (delayNext) {
         setTimeout(() => nextStep("step4"), 4000); // 4-second delay before moving to "Let's eat"
+      }
+
+      if (step === "step5") {
+        setTimeout(() => nextStep("step6"), 2000); // 2-second delay before showing "I love you"
       }
     }
 

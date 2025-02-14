@@ -184,6 +184,11 @@
     <img src="https://i.postimg.cc/Xv85qFQb/IMG-1829.jpg" alt="I Love You" class="final-img">
   </div>
 
+  <div class="container" id="tryAgain">
+    <h1>Try Again!</h1>
+    <button class="yes" onclick="restart()">Start Over</button>
+  </div>
+
   <script>
     let steps = ["step1", "step2", "step3", "step4", "step5", "step6"];
     let currentStep = 0;
@@ -214,13 +219,14 @@
     }
 
     function restart() {
-      // Hide the current step and reset currentStep to 0
-      document.getElementById(steps[currentStep]).style.display = "none";
-      currentStep = 0;
+      // Hide all steps
+      steps.forEach(step => {
+        document.getElementById(step).style.display = "none";
+      });
 
-      // Show the first step again
-      document.getElementById("step1").style.display = "block";
-      
+      // Show Try Again screen
+      document.getElementById("tryAgain").style.display = "block";
+
       // Reset hearts (optional)
       const hearts = document.querySelectorAll('.hearts');
       hearts.forEach(heart => heart.remove());

@@ -73,36 +73,13 @@
       100% { opacity: 1; }
     }
 
-    /* Bigger & Faster Yes Button Animation 💘 */
-    @keyframes heart-pop {
-      0% { transform: scale(1); opacity: 1; }
-      40% { transform: scale(2.2); opacity: 0.8; }
-      100% { transform: scale(1.2); opacity: 0; }
-    }
-    .yes-emoji {
-      position: absolute;
-      font-size: 2.5em;
-      top: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      animation: heart-pop 0.4s ease-out;
-    }
-
-    /* Bigger & Faster No Button Animation 😡 */
-    @keyframes angry-pop {
-      0% { transform: scale(1); opacity: 1; }
-      40% { transform: scale(2.2); opacity: 0.8; }
-      100% { transform: scale(1.2); opacity: 0; }
-    }
-    .no-emoji {
-      position: absolute;
-      font-size: 2.5em;
-      top: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      animation: angry-pop 0.4s ease-out;
+    /* Images for each prompt */
+    .prompt-img {
+      width: 90%;
+      max-width: 200px;
+      height: auto;
+      margin-top: 10px;
+      border-radius: 10px;
     }
 
   </style>
@@ -113,30 +90,34 @@
     <!-- First Prompt -->
     <div id="firstPrompt">
       <h1>Will You Be My Valentine?</h1>
+      <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="prompt-img">
       <div class="buttons">
-        <button id="yesButton" onclick="yesEffect(this); nextStep('foreverPrompt')">Yes <span class="yes-emoji">💘</span></button>
-        <button id="noButton" onclick="noEffect(this); showTryAgain()">No <span class="no-emoji">😡</span></button>
+        <button id="yesButton" onclick="nextStep('foreverPrompt')">Yes 💘</button>
+        <button id="noButton" onclick="showTryAgain()">No 😡</button>
       </div>
     </div>
 
     <!-- Second Prompt (Forever?) -->
     <div id="foreverPrompt" class="hidden">
       <h2>Forever?</h2>
+      <img src="https://i.postimg.cc/s2rqdCbH/IMG-9927.jpg" alt="Forever?" class="prompt-img">
       <div class="buttons">
-        <button id="yesButton2" onclick="yesEffect(this); nextStep('valentineForeverMessage')">Yes</button>
-        <button id="noButton2" onclick="noEffect(this); showTryAgain()">No</button>
+        <button id="yesButton2" onclick="nextStep('valentineForeverMessage')">Yes 💘</button>
+        <button id="noButton2" onclick="showTryAgain()">No 😡</button>
       </div>
     </div>
 
     <!-- Valentine Forever Message -->
     <div id="valentineForeverMessage" class="hidden">
       <h2>Yay! You’re my Valentine forever and ever! 😘</h2>
+      <img src="https://i.postimg.cc/bJBHHQPc/01-J789-AFPAADN0-FXXJ8-VWE7-ZF4-low-res-branded.jpg" alt="Valentine Forever" class="prompt-img">
       <button onclick="nextStep('foodPrompt')">Next</button>
     </div>
 
     <!-- Let's Eat Prompt -->
     <div id="foodPrompt" class="hidden">
       <h2>Let's eat:</h2>
+      <img src="https://i.postimg.cc/yYdmk3XF/01-JFR2-DDBKFAD0-HG70-B9-G8-XQ39-low-res-branded.jpg" alt="Food Options" class="prompt-img">
       <div class="buttons">
         <button class="foodButton" onclick="nextStep('yummyMessage')">KBBQ</button>
         <button class="foodButton" onclick="nextStep('yummyMessage')">Jajangmyeon</button>
@@ -147,6 +128,7 @@
     <!-- Yummy Message -->
     <div id="yummyMessage" class="hidden">
       <h2>Yummy! 😋</h2>
+      <img src="https://i.postimg.cc/HkFVWVBs/IMG-9301.jpg" alt="Delicious Food" class="prompt-img">
       <button onclick="nextStep('finalMessage')">Next</button>
     </div>
 
@@ -154,6 +136,7 @@
     <div id="finalMessage" class="hidden">
       <h2>I Love You ❤️</h2>
       <h2>Happy Valentine’s Day!</h2>
+      <img src="https://i.postimg.cc/Xv85qFQb/IMG-1829.jpg" alt="I Love You" class="prompt-img">
     </div>
 
     <!-- Try Again Prompt -->
@@ -176,28 +159,6 @@
       document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
       document.getElementById('tryAgainMessage').classList.remove('hidden');
       document.getElementById('tryAgainMessage').classList.add('fade-in');  
-    }
-
-    function yesEffect(button) {
-      let emoji = button.querySelector('.yes-emoji');
-      if (emoji) {
-        emoji.style.animation = 'none';
-        void emoji.offsetWidth;
-        emoji.style.animation = 'heart-pop 0.4s ease-out';
-        emoji.style.opacity = '1';
-        setTimeout(() => emoji.style.opacity = '0', 400);
-      }
-    }
-
-    function noEffect(button) {
-      let emoji = button.querySelector('.no-emoji');
-      if (emoji) {
-        emoji.style.animation = 'none';
-        void emoji.offsetWidth;
-        emoji.style.animation = 'angry-pop 0.4s ease-out';
-        emoji.style.opacity = '1';
-        setTimeout(() => emoji.style.opacity = '0', 400);
-      }
     }
   </script>
 </body>

@@ -15,7 +15,7 @@
       overflow: hidden;
       position: relative;
     }
-
+    
     h1 {
       color: #ff1493;
       font-size: 1.8em;
@@ -108,7 +108,6 @@
 
   <div class="container" id="step1">
     <h1>Will you be my valentine?</h1>
-    <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="final-img">
     <div class="buttons">
       <button class="yes" onclick="nextStep('step2')">Yes</button>
       <button class="no" onclick="restart()">No</button>
@@ -141,7 +140,7 @@
   </div>
 
   <div class="container" id="step6">
-    <h1>I love you! Happy Valentine’s Day ❤️</h1>
+    <h1>I love you. Happy Valentine's!</h1>
     <img src="https://i.postimg.cc/Xv85qFQb/IMG-1829.jpg" alt="I Love You" class="final-img">
   </div>
 
@@ -163,14 +162,16 @@
         if (buttons) buttons.classList.add("fade-in");
       }, 200); 
 
-      generateHearts();
-
       if (delayNext) {
         setTimeout(() => nextStep("step4"), 4000);
       }
 
       if (step === "step5") {
         setTimeout(() => nextStep("step6"), 2000);
+      }
+
+      if (step === "step6") {
+        generateHearts();
       }
     }
 
@@ -181,7 +182,7 @@
     }
 
     function generateHearts() {
-      for (let i = 0; i < 15; i++) {
+      for (let i = 0; i < 10; i++) {
         let heart = document.createElement("div");
         heart.classList.add("hearts");
         document.body.appendChild(heart);

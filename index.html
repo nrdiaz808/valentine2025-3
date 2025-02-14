@@ -17,6 +17,8 @@
       color: #ff1493;
       font-size: 1.8em;
       margin: 10px 0;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
     }
     .container {
       background-color: #fff;
@@ -59,6 +61,9 @@
     .hidden {
       display: none;
     }
+    .fade-in {
+      opacity: 1 !important;
+    }
     .valentine-img {
       width: 70%;
       max-width: 120px;
@@ -72,130 +77,65 @@
       margin-top: 20px;
       border-radius: 10px;
     }
-    .fade-in {
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
-    }
   </style>
 </head>
 <body>
-  <audio id="loveSong" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" preload="auto"></audio>
 
-  <div class="container">
-    <!-- First Prompt -->
-    <div id="firstPrompt">
-      <h1>Will You Be My Valentine?</h1>
-      <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="valentine-img">
-      <div class="buttons">
-        <button class="yes" id="yesButton">Yes</button>
-        <button class="no" id="noButton">No</button>
-      </div>
-    </div>
-
-    <!-- Second Prompt (Valentine Forever) -->
-    <div id="foreverPrompt" class="hidden">
-      <h2>Will you be my valentine forever?</h2>
-      <div class="buttons">
-        <button class="yes" id="yesButton2">Yes</button>
-        <button class="no" id="noButton2">No</button>
-      </div>
-    </div>
-
-    <!-- "Yay!" Message -->
-    <div id="yayMessage" class="hidden">
-      <h2>Yay! You’re my valentine forever and ever! ❤️</h2>
-    </div>
-
-    <!-- "Try Again" Message -->
-    <div id="tryAgainMessage" class="hidden">
-      <h2>Try Again!</h2>
-      <button id="backButton">Restart</button>
-    </div>
-
-    <!-- Food Prompt -->
-    <div id="foodPrompt" class="hidden">
-      <h2>Let's eat:</h2>
-      <div class="buttons">
-        <button class="foodButton">KBBQ</button>
-        <button class="foodButton">Jajangmyeon</button>
-        <button class="foodButton">IDC, let's just eat</button>
-      </div>
-    </div>
-
-    <!-- Yummy Message -->
-    <div id="yummyMessage" class="hidden">
-      <h2>Yummy! 😋</h2>
-    </div>
-
-    <!-- Final Love Message -->
-    <div id="loveMessage" class="hidden fade-in">
-      <h2>I Love You ❤️</h2>
-      <img src="https://i.postimg.cc/Xv85qFQb/IMG-1829.jpg" alt="I Love You" class="final-img">
+  <div class="container" id="step1">
+    <h1 class="fade-in">Will you be my valentine?</h1>
+    <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="valentine-img">
+    <div class="buttons">
+      <button class="yes" onclick="showStep('step2')">Yes</button>
+      <button class="no" onclick="restart()">No</button>
     </div>
   </div>
 
-  <script>
-    const firstPrompt = document.getElementById('firstPrompt');
-    const yesButton = document.getElementById('yesButton');
-    const noButton = document.getElementById('noButton');
-    const foreverPrompt = document.getElementById('foreverPrompt');
-    const tryAgainMessage = document.getElementById('tryAgainMessage');
-    const backButton = document.getElementById('backButton');
-    const yesButton2 = document.getElementById('yesButton2');
-    const noButton2 = document.getElementById('noButton2');
-    const yayMessage = document.getElementById('yayMessage');
-    const foodPrompt = document.getElementById('foodPrompt');
-    const foodButtons = document.querySelectorAll('.foodButton');
-    const yummyMessage = document.getElementById('yummyMessage');
-    const loveMessage = document.getElementById('loveMessage');
-    const loveSong = document.getElementById('loveSong');
+  <div class="container hidden" id="step2">
+    <h1 class="fade-in">Will you be my valentine forever?</h1>
+    <div class="buttons">
+      <button class="yes" onclick="showStep('step3', true)">Yes</button>
+      <button class="no" onclick="restart()">No</button>
+    </div>
+  </div>
 
-    function showOnly(element) {
-      firstPrompt.classList.add('hidden');
-      foreverPrompt.classList.add('hidden');
-      tryAgainMessage.classList.add('hidden');
-      yayMessage.classList.add('hidden');
-      foodPrompt.classList.add('hidden');
-      yummyMessage.classList.add('hidden');
-      loveMessage.classList.add('hidden');
-      loveMessage.style.opacity = "0";
-      
-      element.classList.remove('hidden');
+  <div class="container hidden" id="step3">
+    <h1 id="foreverMessage" class="hidden">Yay! You're my valentine forever and ever!</h1>
+    <div class="buttons hidden" id="foodSelection">
+      <h2 class="fade-in">Let's eat:</h2>
+      <button class="foodButton" onclick="showStep('step4')">KBBQ</button>
+      <button class="foodButton" onclick="showStep('step4')">Jajangmyeon</button>
+      <button class="foodButton" onclick="showStep('step4')">IDC, let's just eat</button>
+    </div>
+  </div>
+
+  <div class="container hidden" id="step4">
+    <h1 class="fade-in">Yummy!</h1>
+    <img src="https://i.postimg.cc/Xv85qFQb/IMG-1829.jpg" alt="I Love You" class="final-img">
+  </div>
+
+  <script>
+    function showStep(step, isForever = false) {
+      document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
+      document.getElementById(step).classList.remove('hidden');
+
+      if (isForever) {
+        setTimeout(() => {
+          document.getElementById('foreverMessage').classList.add('fade-in');
+          document.getElementById('foreverMessage').classList.remove('hidden');
+        }, 500);
+
+        setTimeout(() => {
+          document.getElementById('foodSelection').classList.remove('hidden');
+          document.getElementById('foodSelection').classList.add('fade-in');
+        }, 2000);
+      }
     }
 
-    yesButton.addEventListener('click', () => {
-      showOnly(foreverPrompt);
-      loveSong.play().catch(() => console.log("Autoplay blocked, waiting for user interaction."));
-    });
-
-    noButton.addEventListener('click', () => {
-      showOnly(tryAgainMessage);
-    });
-
-    yesButton2.addEventListener('click', () => {
-      showOnly(yayMessage);
-      setTimeout(() => {
-        showOnly(foodPrompt);
-      }, 1500);
-    });
-
-    noButton2.addEventListener('click', () => {
-      showOnly(tryAgainMessage);
-    });
-
-    backButton.addEventListener('click', () => {
-      showOnly(firstPrompt);
-    });
-
-    foodButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        showOnly(yummyMessage);
-        setTimeout(() => {
-          showOnly(loveMessage);
-          setTimeout(() => loveMessage.style.opacity = "1", 200);
-        }, 1500);
-      });
-    });
+    function restart() {
+      document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
+      document.getElementById('step1').classList.remove('hidden');
+    }
   </script>
+
 </body>
 </html>

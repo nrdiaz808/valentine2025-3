@@ -159,10 +159,12 @@
     let currentStep = 0;
 
     function nextStep(step, delayNext = false) {
+      // Hide the current step container
       document.getElementById(steps[currentStep]).style.display = "none"; 
       currentStep = steps.indexOf(step);
       document.getElementById(step).style.display = "block";
 
+      // Apply fade-in effect to title, buttons, and image
       let title = document.querySelector(`#${step} h1`);
       let buttons = document.querySelector(`#${step} .buttons`);
       let img = document.querySelector(`#${step} .final-img`);
@@ -179,10 +181,12 @@
 
       generateHearts();
 
+      // Delay next step transition if needed
       if (delayNext) {
-        setTimeout(() => nextStep("step4"), 4000);
+        setTimeout(() => nextStep("step4"), 4000); // Transition to step4 after delay
       }
 
+      // Transition to step6 after step5
       if (step === "step5") {
         setTimeout(() => nextStep("step6"), 4000); // 4 seconds for transition after "Yummy!"
       }

@@ -41,9 +41,10 @@
       border: none;
       border-radius: 10px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s, transform 0.2s;
       width: 100%;
       max-width: 220px;
+      position: relative;
     }
     #yesButton, #yesButton2, .foodButton {
       background-color: #ff69b4;
@@ -59,22 +60,41 @@
     .hidden {
       display: none;
     }
-    .valentine-img {
-      width: 70%;
-      max-width: 120px;
-      height: auto;
-      margin: 8px;
-      border-radius: 10px;
-    }
-    .final-img, .forever-img, .food-img, .yummy-img, .valentine-forever-img {
-      width: 90%;
-      max-width: 300px;
-      margin-top: 20px;
-      border-radius: 10px;
-    }
     .fade-in {
       opacity: 0;
       transition: opacity 1.5s ease-in-out;
+    }
+
+    /* YES BUTTON ANIMATION 💘 */
+    @keyframes heart-pop {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 0; }
+    }
+    .yes-emoji {
+      position: absolute;
+      font-size: 1.5em;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      animation: heart-pop 0.6s ease-out;
+    }
+
+    /* NO BUTTON ANIMATION 😡 */
+    @keyframes angry-pop {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 0; }
+    }
+    .no-emoji {
+      position: absolute;
+      font-size: 1.5em;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      animation: angry-pop 0.6s ease-out;
     }
   </style>
 </head>
@@ -83,119 +103,32 @@
     <!-- First Prompt -->
     <div id="firstPrompt">
       <h1>Will You Be My Valentine?</h1>
-      <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="valentine-img">
+      <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear">
       <div class="buttons">
-        <button id="yesButton">Yes</button>
-        <button id="noButton">No</button>
+        <button id="yesButton" onclick="yesEffect(this)">Yes <span class="yes-emoji">💘</span></button>
+        <button id="noButton" onclick="noEffect(this)">No <span class="no-emoji">😡</span></button>
       </div>
-    </div>
-
-    <!-- Second Prompt (Forever?) -->
-    <div id="foreverPrompt" class="hidden">
-      <h2>Forever?</h2>
-      <img src="https://i.postimg.cc/s2rqdCbH/IMG-9927.jpg" alt="Forever?" class="forever-img">
-      <div class="buttons">
-        <button id="yesButton2">Yes</button>
-        <button id="noButton2">No</button>
-      </div>
-    </div>
-
-    <!-- Valentine Forever Message -->
-    <div id="valentineForeverMessage" class="hidden">
-      <h2>Yay! You’re my Valentine forever and ever! 😘</h2>
-      <img src="https://i.postimg.cc/bJBHHQPc/01-J789-AFPAADN0-FXXJ8-VWE7-ZF4-low-res-branded.jpg" alt="Valentine Forever" class="valentine-forever-img">
-    </div>
-
-    <!-- "Try Again" Message -->
-    <div id="tryAgainMessage" class="hidden">
-      <h2>Try Again!</h2>
-      <button id="backButton">Go Back</button>
-    </div>
-
-    <!-- Food Prompt -->
-    <div id="foodPrompt" class="hidden">
-      <h2>Let's eat:</h2>
-      <img src="https://i.postimg.cc/yYdmk3XF/01-JFR2-DDBKFAD0-HG70-B9-G8-XQ39-low-res-branded.jpg" alt="Food Options" class="food-img">
-      <div class="buttons">
-        <button class="foodButton">KBBQ</button>
-        <button class="foodButton">Jajangmyeon</button>
-        <button class="foodButton">IDC, let's just eat</button>
-      </div>
-    </div>
-
-    <!-- Yummy Message -->
-    <div id="yummyMessage" class="hidden">
-      <h2>Yummy! 😋</h2>
-      <img src="https://i.postimg.cc/HkFVWVBs/IMG-9301.jpg" alt="Delicious Food" class="yummy-img">
-    </div>
-
-    <!-- Final Love Message -->
-    <div id="loveMessage" class="hidden fade-in">
-      <h2>I Love You ❤️</h2>
-      <h2>Happy Valentine’s Day!</h2>
-      <img src="https://i.postimg.cc/Xv85qFQb/IMG-1829.jpg" alt="I Love You" class="final-img">
     </div>
   </div>
 
   <script>
-    const firstPrompt = document.getElementById('firstPrompt');
-    const yesButton = document.getElementById('yesButton');
-    const noButton = document.getElementById('noButton');
-    const foreverPrompt = document.getElementById('foreverPrompt');
-    const tryAgainMessage = document.getElementById('tryAgainMessage');
-    const backButton = document.getElementById('backButton');
-    const yesButton2 = document.getElementById('yesButton2');
-    const noButton2 = document.getElementById('noButton2');
-    const valentineForeverMessage = document.getElementById('valentineForeverMessage');
-    const foodPrompt = document.getElementById('foodPrompt');
-    const foodButtons = document.querySelectorAll('.foodButton');
-    const yummyMessage = document.getElementById('yummyMessage');
-    const loveMessage = document.getElementById('loveMessage');
-
-    function showOnly(element) {
-      firstPrompt.classList.add('hidden');
-      foreverPrompt.classList.add('hidden');
-      tryAgainMessage.classList.add('hidden');
-      valentineForeverMessage.classList.add('hidden');
-      foodPrompt.classList.add('hidden');
-      yummyMessage.classList.add('hidden');
-      loveMessage.classList.add('hidden');
-      loveMessage.style.opacity = "0"; // Reset opacity
-
-      element.classList.remove('hidden');
+    function yesEffect(button) {
+      let emoji = button.querySelector('.yes-emoji');
+      emoji.style.animation = 'none';
+      void emoji.offsetWidth;  // Reset animation
+      emoji.style.animation = 'heart-pop 0.6s ease-out';
+      emoji.style.opacity = '1';
+      setTimeout(() => emoji.style.opacity = '0', 600);
     }
 
-    yesButton.addEventListener('click', () => {
-      showOnly(foreverPrompt);
-    });
-
-    noButton.addEventListener('click', () => {
-      showOnly(tryAgainMessage);
-    });
-
-    backButton.addEventListener('click', () => {
-      showOnly(firstPrompt);
-    });
-
-    yesButton2.addEventListener('click', () => {
-      showOnly(valentineForeverMessage);
-      setTimeout(() => showOnly(foodPrompt), 4000); // 4-second delay instead of 2
-    });
-
-    noButton2.addEventListener('click', () => {
-      alert("Try again!");
-      showOnly(firstPrompt);
-    });
-
-    foodButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        showOnly(yummyMessage);
-        setTimeout(() => {
-          showOnly(loveMessage);
-          setTimeout(() => loveMessage.style.opacity = "1", 200);
-        }, 2500); // 2.5-second delay instead of 1.5
-      });
-    });
+    function noEffect(button) {
+      let emoji = button.querySelector('.no-emoji');
+      emoji.style.animation = 'none';
+      void emoji.offsetWidth;  // Reset animation
+      emoji.style.animation = 'angry-pop 0.6s ease-out';
+      emoji.style.opacity = '1';
+      setTimeout(() => emoji.style.opacity = '0', 600);
+    }
   </script>
 </body>
 </html>

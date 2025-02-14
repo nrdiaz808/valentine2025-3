@@ -81,26 +81,6 @@
       width: 80%;
       max-width: 250px;
     }
-    /* Floating Heart and Flower Animation */
-    .floating {
-      position: fixed;
-      font-size: 2rem;
-      animation: floatUp 6s linear infinite;
-      opacity: 0.8;
-    }
-    @keyframes floatUp {
-      0% {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-10vh);
-        opacity: 0;
-      }
-    }
   </style>
 </head>
 <body>
@@ -131,6 +111,11 @@
     <div id="tryAgainMessage" class="hidden fade-in">
       <h2>Try Again!</h2>
       <button id="backButton">Go Back</button>
+    </div>
+
+    <div id="tryAgainMessage2" class="hidden fade-in">
+      <h2>Try Again!</h2>
+      <button id="backButton2">Go Back</button>
     </div>
 
     <div id="foodPrompt" class="hidden fade-in">
@@ -172,32 +157,21 @@
 
     document.getElementById('yesButton2').addEventListener('click', () => {
       showOnly(document.getElementById('valentineForeverMessage'));
-      setTimeout(() => showOnly(document.getElementById('foodPrompt')), 3500); // Increased from 3000ms to 3500ms
+      setTimeout(() => showOnly(document.getElementById('foodPrompt')), 3500);
     });
 
     document.getElementById('noButton2').addEventListener('click', () => {
-      alert("Try again!");
-      showOnly(document.getElementById('firstPrompt'));
+      showOnly(document.getElementById('tryAgainMessage2'));
     });
+
+    document.getElementById('backButton2').addEventListener('click', () => showOnly(document.getElementById('firstPrompt')));
 
     document.querySelectorAll('.foodButton').forEach(button => {
       button.addEventListener('click', () => {
         showOnly(document.getElementById('yummyMessage'));
-        setTimeout(() => showOnly(document.getElementById('loveMessage')), 3000); // Increased from 2500ms to 3000ms
+        setTimeout(() => showOnly(document.getElementById('loveMessage')), 3000);
       });
     });
-
-    function createFloatingEmoji() {
-      const emoji = document.createElement("div");
-      emoji.textContent = Math.random() > 0.5 ? "💘" : "💐";
-      emoji.classList.add("floating");
-      emoji.style.left = Math.random() * 100 + "vw";
-      emoji.style.animationDuration = Math.random() * 3 + 3 + "s";
-      document.body.appendChild(emoji);
-      setTimeout(() => emoji.remove(), 6000);
-    }
-
-    setInterval(createFloatingEmoji, 400);
   </script>
 </body>
 </html>

@@ -12,7 +12,10 @@
       padding: 20px;
       margin: 0;
       -webkit-tap-highlight-color: transparent;
+      overflow: hidden;
+      position: relative;
     }
+    
     h1, h2 {
       color: #ff1493;
       font-size: 1.8em;
@@ -20,6 +23,7 @@
       opacity: 0;
       transition: opacity 1.5s ease-in-out;
     }
+
     .container {
       background-color: #fff;
       border: 4px solid #ff69b4;
@@ -31,13 +35,17 @@
       margin: 0 auto;
       display: none;
     }
+
     .buttons {
       margin-top: 15px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 8px;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
     }
+
     button {
       font-size: 1.1em;
       padding: 12px;
@@ -48,20 +56,25 @@
       width: 100%;
       max-width: 220px;
     }
+
     .yes, .foodButton {
       background-color: #ff69b4;
       color: white;
     }
+
     .no {
       background-color: #ff1493;
       color: white;
     }
+
     button:active {
       transform: scale(0.95);
     }
+
     .fade-in {
       opacity: 1 !important;
     }
+
     .valentine-img {
       width: 70%;
       max-width: 120px;
@@ -69,11 +82,33 @@
       margin: 8px;
       border-radius: 10px;
     }
+
     .final-img {
       width: 90%;
       max-width: 300px;
       margin-top: 20px;
       border-radius: 10px;
+    }
+
+    .hearts {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff69b4;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: float 3s linear infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -129,17 +164,24 @@
       document.getElementById(step).style.display = "block";
 
       let title = document.querySelector(`#${step} h1`);
+      let buttons = document.querySelector(`#${step} .buttons`);
+
       title.style.opacity = "0";
       setTimeout(() => {
         title.classList.add("fade-in");
+        if (buttons) buttons.classList.add("fade-in");
       }, 200); 
 
       if (delayNext) {
-        setTimeout(() => nextStep("step4"), 4000); // 4-second delay before moving to "Let's eat"
+        setTimeout(() => nextStep("step4"), 4000);
       }
 
       if (step === "step5") {
-        setTimeout(() => nextStep("step6"), 2000); // 2-second delay before showing "I love you"
+        setTimeout(() => nextStep("step6"), 2000);
+      }
+
+      if (step === "step6") {
+        generateHearts();
       }
     }
 
@@ -149,9 +191,24 @@
       document.getElementById("step1").style.display = "block";
     }
 
+    function generateHearts() {
+      for (let i = 0; i < 10; i++) {
+        let heart = document.createElement("div");
+        heart.classList.add("hearts");
+        document.body.appendChild(heart);
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+
+        setTimeout(() => heart.remove(), 3000);
+      }
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("step1").style.display = "block";
-      setTimeout(() => document.querySelector("#step1 h1").classList.add("fade-in"), 200);
+      setTimeout(() => {
+        document.querySelector("#step1 h1").classList.add("fade-in");
+        document.querySelector("#step1 .buttons").classList.add("fade-in");
+      }, 200);
     });
   </script>
 

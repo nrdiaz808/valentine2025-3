@@ -172,7 +172,7 @@
 
     document.getElementById('yesButton2').addEventListener('click', () => {
       showOnly(document.getElementById('valentineForeverMessage'));
-      setTimeout(() => showOnly(document.getElementById('foodPrompt')), 3000);
+      setTimeout(() => showOnly(document.getElementById('foodPrompt')), 3500); // Increased from 3000ms to 3500ms
     });
 
     document.getElementById('noButton2').addEventListener('click', () => {
@@ -183,7 +183,7 @@
     document.querySelectorAll('.foodButton').forEach(button => {
       button.addEventListener('click', () => {
         showOnly(document.getElementById('yummyMessage'));
-        setTimeout(() => showOnly(document.getElementById('loveMessage')), 2500);
+        setTimeout(() => showOnly(document.getElementById('loveMessage')), 3000); // Increased from 2500ms to 3000ms
       });
     });
 

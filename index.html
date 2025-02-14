@@ -67,6 +67,9 @@
       opacity: 0;
       transition: opacity 1.5s ease-in-out;
     }
+    .show {
+      opacity: 1;
+    }
     .valentine-img, .final-img, .forever-img, .yummy-img, .valentine-forever-img {
       width: 90%;
       max-width: 300px;
@@ -77,25 +80,6 @@
     .food-img {
       width: 80%;
       max-width: 250px;
-    }
-    .floating {
-      position: fixed;
-      font-size: 2rem;
-      animation: floatUp 6s linear infinite;
-      opacity: 0.8;
-    }
-    @keyframes floatUp {
-      0% {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-10vh);
-        opacity: 0;
-      }
     }
   </style>
 </head>
@@ -153,15 +137,21 @@
 
   <script>
     function showOnly(element) {
-      document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
+      // Hide all prompts
+      document.querySelectorAll('.container > div').forEach(div => {
+        div.classList.add('hidden');
+        div.classList.remove('show');
+      });
+
+      // Show the selected element and trigger fade-in
       element.classList.remove('hidden');
-      setTimeout(() => element.classList.add('fade-in'), 50);
+      setTimeout(() => element.classList.add('show'), 50);
     }
 
     document.getElementById('yesButton').addEventListener('click', () => showOnly(document.getElementById('foreverPrompt')));
     document.getElementById('noButton').addEventListener('click', () => showOnly(document.getElementById('tryAgainMessage')));
     document.getElementById('backButton').addEventListener('click', () => showOnly(document.getElementById('firstPrompt')));
-    
+
     document.getElementById('yesButton2').addEventListener('click', () => {
       showOnly(document.getElementById('valentineForeverMessage'));
       setTimeout(() => showOnly(document.getElementById('foodPrompt')), 3000);
@@ -178,18 +168,6 @@
         setTimeout(() => showOnly(document.getElementById('loveMessage')), 2500);
       });
     });
-
-    function createFloatingEmoji() {
-      const emoji = document.createElement("div");
-      emoji.textContent = Math.random() > 0.5 ? "💘" : "💐";
-      emoji.classList.add("floating");
-      emoji.style.left = Math.random() * 100 + "vw";
-      emoji.style.animationDuration = Math.random() * 3 + 3 + "s";
-      document.body.appendChild(emoji);
-      setTimeout(() => emoji.remove(), 6000);
-    }
-
-    setInterval(createFloatingEmoji, 400);
   </script>
 </body>
 </html>

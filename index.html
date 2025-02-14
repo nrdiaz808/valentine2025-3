@@ -11,6 +11,8 @@
       text-align: center;
       padding: 20px;
       margin: 0;
+      overflow: hidden; /* Prevents scrolling from animations */
+      position: relative;
       -webkit-tap-highlight-color: transparent;
     }
     h1, h2 {
@@ -27,6 +29,8 @@
       width: 90%;
       max-width: 350px;
       margin: 0 auto;
+      position: relative;
+      z-index: 10;
     }
     .buttons {
       margin-top: 15px;
@@ -59,22 +63,38 @@
     .hidden {
       display: none;
     }
-    .valentine-img {
+    .valentine-img, .final-img, .forever-img, .food-img, .yummy-img, .valentine-forever-img {
       width: 70%;
       max-width: 120px;
       height: auto;
       margin: 8px;
       border-radius: 10px;
     }
-    .final-img, .forever-img, .food-img, .yummy-img, .valentine-forever-img {
-      width: 90%;
-      max-width: 300px;
-      margin-top: 20px;
-      border-radius: 10px;
-    }
     .fade-in {
       opacity: 0;
       transition: opacity 1.5s ease-in-out;
+    }
+
+    /* Floating Heart and Flower Animation */
+    .floating {
+      position: fixed;
+      font-size: 2rem;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -153,33 +173,18 @@
     const loveMessage = document.getElementById('loveMessage');
 
     function showOnly(element) {
-      firstPrompt.classList.add('hidden');
-      foreverPrompt.classList.add('hidden');
-      tryAgainMessage.classList.add('hidden');
-      valentineForeverMessage.classList.add('hidden');
-      foodPrompt.classList.add('hidden');
-      yummyMessage.classList.add('hidden');
-      loveMessage.classList.add('hidden');
-      loveMessage.style.opacity = "0"; // Reset opacity
-
+      document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
+      loveMessage.style.opacity = "0";
       element.classList.remove('hidden');
     }
 
-    yesButton.addEventListener('click', () => {
-      showOnly(foreverPrompt);
-    });
-
-    noButton.addEventListener('click', () => {
-      showOnly(tryAgainMessage);
-    });
-
-    backButton.addEventListener('click', () => {
-      showOnly(firstPrompt);
-    });
+    yesButton.addEventListener('click', () => showOnly(foreverPrompt));
+    noButton.addEventListener('click', () => showOnly(tryAgainMessage));
+    backButton.addEventListener('click', () => showOnly(firstPrompt));
 
     yesButton2.addEventListener('click', () => {
       showOnly(valentineForeverMessage);
-      setTimeout(() => showOnly(foodPrompt), 3500); // 3.5-second delay instead of 4
+      setTimeout(() => showOnly(foodPrompt), 3500);
     });
 
     noButton2.addEventListener('click', () => {
@@ -193,9 +198,21 @@
         setTimeout(() => {
           showOnly(loveMessage);
           setTimeout(() => loveMessage.style.opacity = "1", 200);
-        }, 2500); // 2.5-second delay instead of 1.5
+        }, 2500);
       });
     });
+
+    function createFloatingEmoji() {
+      const emoji = document.createElement("div");
+      emoji.textContent = Math.random() > 0.5 ? "💘" : "💐";
+      emoji.classList.add("floating");
+      emoji.style.left = Math.random() * 100 + "vw";
+      emoji.style.animationDuration = Math.random() * 3 + 3 + "s";
+      document.body.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 6000);
+    }
+
+    setInterval(createFloatingEmoji, 400);
   </script>
 </body>
 </html>

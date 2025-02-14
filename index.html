@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Valentine's Day</title>
   <style>
+    /* General Body Styles */
     body {
       font-family: 'Comic Sans MS', cursive, sans-serif;
       background-color: #ffebf3;
@@ -14,6 +15,11 @@
       -webkit-tap-highlight-color: transparent;
       overflow: hidden;
       position: relative;
+      height: 100vh; /* Ensure full screen on mobile Safari */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
     }
 
     h1 {
@@ -29,11 +35,12 @@
       border: 4px solid #ff69b4;
       border-radius: 20px;
       padding: 20px;
-      box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.5);
       width: 90%;
       max-width: 350px;
       margin: 0 auto;
       display: none;
+      transition: all 0.3s ease-in-out;
     }
 
     .buttons {
@@ -52,7 +59,7 @@
       border: none;
       border-radius: 10px;
       cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
+      transition: background-color 0.3s, transform 0.2s ease-in-out;
       width: 100%;
       max-width: 220px;
     }
@@ -80,6 +87,7 @@
       max-width: 300px;
       margin-top: 20px;
       border-radius: 10px;
+      transition: all 0.5s ease-in-out;
     }
 
     .hearts {
@@ -108,6 +116,26 @@
       max-width: 270px;
       margin-top: 15px;
       border-radius: 10px;
+    }
+
+    /* Ensure proper scaling and layout on small devices */
+    @media screen and (max-width: 768px) {
+      h1 {
+        font-size: 1.5em;
+      }
+
+      .container {
+        width: 80%;
+      }
+
+      button {
+        font-size: 1em;
+        padding: 10px;
+      }
+
+      .food-img, .final-img {
+        max-width: 260px;
+      }
     }
   </style>
 </head>

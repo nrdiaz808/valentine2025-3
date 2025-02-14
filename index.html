@@ -11,7 +11,7 @@
       text-align: center;
       padding: 20px;
       margin: 0;
-      overflow: hidden; /* Prevents scrolling from animations */
+      overflow: hidden;
       position: relative;
       -webkit-tap-highlight-color: transparent;
     }
@@ -74,15 +74,12 @@
       opacity: 0;
       transition: opacity 1.5s ease-in-out;
     }
-
-    /* Floating Heart and Flower Animation */
     .floating {
       position: fixed;
       font-size: 2rem;
       animation: floatUp 6s linear infinite;
       opacity: 0.8;
     }
-
     @keyframes floatUp {
       0% {
         transform: translateY(100vh);
@@ -100,7 +97,6 @@
 </head>
 <body>
   <div class="container">
-    <!-- First Prompt -->
     <div id="firstPrompt">
       <h1>Will You Be My Valentine?</h1>
       <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="valentine-img">
@@ -110,7 +106,6 @@
       </div>
     </div>
 
-    <!-- Second Prompt (Forever?) -->
     <div id="foreverPrompt" class="hidden">
       <h2>Forever?</h2>
       <img src="https://i.postimg.cc/s2rqdCbH/IMG-9927.jpg" alt="Forever?" class="forever-img">
@@ -120,19 +115,16 @@
       </div>
     </div>
 
-    <!-- Valentine Forever Message -->
     <div id="valentineForeverMessage" class="hidden">
       <h2>Yay! You’re my Valentine forever and ever! 😘</h2>
       <img src="https://i.postimg.cc/bJBHHQPc/01-J789-AFPAADN0-FXXJ8-VWE7-ZF4-low-res-branded.jpg" alt="Valentine Forever" class="valentine-forever-img">
     </div>
 
-    <!-- "Try Again" Message -->
     <div id="tryAgainMessage" class="hidden">
       <h2>Try Again!</h2>
       <button id="backButton">Go Back</button>
     </div>
 
-    <!-- Food Prompt -->
     <div id="foodPrompt" class="hidden">
       <h2>Let's eat:</h2>
       <img src="https://i.postimg.cc/yYdmk3XF/01-JFR2-DDBKFAD0-HG70-B9-G8-XQ39-low-res-branded.jpg" alt="Food Options" class="food-img">
@@ -143,13 +135,11 @@
       </div>
     </div>
 
-    <!-- Yummy Message -->
     <div id="yummyMessage" class="hidden">
       <h2>Yummy! 😋</h2>
       <img src="https://i.postimg.cc/HkFVWVBs/IMG-9301.jpg" alt="Delicious Food" class="yummy-img">
     </div>
 
-    <!-- Final Love Message -->
     <div id="loveMessage" class="hidden fade-in">
       <h2>I Love You ❤️</h2>
       <h2>Happy Valentine’s Day!</h2>
@@ -184,7 +174,7 @@
 
     yesButton2.addEventListener('click', () => {
       showOnly(valentineForeverMessage);
-      setTimeout(() => showOnly(foodPrompt), 3500);
+      setTimeout(() => showOnly(foodPrompt), 3000); // Changed to 3 seconds
     });
 
     noButton2.addEventListener('click', () => {

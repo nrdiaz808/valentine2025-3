@@ -11,7 +11,6 @@
       text-align: center;
       padding: 20px;
       margin: 0;
-      overflow: hidden;
       -webkit-tap-highlight-color: transparent;
     }
     h1, h2 {
@@ -28,8 +27,6 @@
       width: 90%;
       max-width: 350px;
       margin: 0 auto;
-      position: relative;
-      z-index: 10;
     }
     .buttons {
       margin-top: 15px;
@@ -48,7 +45,7 @@
       width: 100%;
       max-width: 220px;
     }
-    #yesButton, #yesButton2 {
+    #yesButton, #yesButton2, .foodButton {
       background-color: #ff69b4;
       color: white;
     }
@@ -69,18 +66,15 @@
       margin: 8px;
       border-radius: 10px;
     }
-    .love-message {
-      font-size: 2em;
-      color: #ff1493;
-      font-weight: bold;
-      margin-top: 30px;
+    .final-img {
+      width: 90%;
+      max-width: 300px;
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+    .fade-in {
       opacity: 0;
       transition: opacity 1.5s ease-in-out;
-    }
-    @media (hover: none) {
-      button {
-        touch-action: manipulation;
-      }
     }
   </style>
 </head>
@@ -98,9 +92,9 @@
       </div>
     </div>
 
-    <!-- Second Prompt -->
+    <!-- Second Prompt (Valentine Forever) -->
     <div id="foreverPrompt" class="hidden">
-      <h2>Yay! Will you be my valentine forever?</h2>
+      <h2>Yay! You’re my valentine forever and ever!</h2>
       <div class="buttons">
         <button id="yesButton2">Yes</button>
         <button id="noButton2">No</button>
@@ -113,8 +107,26 @@
       <button id="backButton">Go Back</button>
     </div>
 
+    <!-- Food Prompt -->
+    <div id="foodPrompt" class="hidden">
+      <h2>Let's eat:</h2>
+      <div class="buttons">
+        <button class="foodButton">KBBQ</button>
+        <button class="foodButton">Jajangmyeon</button>
+        <button class="foodButton">IDC, let's just eat</button>
+      </div>
+    </div>
+
+    <!-- Yummy Message -->
+    <div id="yummyMessage" class="hidden">
+      <h2>Yummy! 😋</h2>
+    </div>
+
     <!-- Final Love Message -->
-    <div id="loveMessage" class="hidden love-message">I Love You ❤️</div>
+    <div id="loveMessage" class="hidden fade-in">
+      <h2>I Love You ❤️</h2>
+      <img src="https://i.postimg.cc/Xv85qFQb/IMG-1829.jpg" alt="I Love You" class="final-img">
+    </div>
   </div>
 
   <script>
@@ -126,6 +138,9 @@
     const backButton = document.getElementById('backButton');
     const yesButton2 = document.getElementById('yesButton2');
     const noButton2 = document.getElementById('noButton2');
+    const foodPrompt = document.getElementById('foodPrompt');
+    const foodButtons = document.querySelectorAll('.foodButton');
+    const yummyMessage = document.getElementById('yummyMessage');
     const loveMessage = document.getElementById('loveMessage');
     const loveSong = document.getElementById('loveSong');
 
@@ -133,6 +148,8 @@
       firstPrompt.classList.add('hidden');
       foreverPrompt.classList.add('hidden');
       tryAgainMessage.classList.add('hidden');
+      foodPrompt.classList.add('hidden');
+      yummyMessage.classList.add('hidden');
       loveMessage.classList.add('hidden');
       loveMessage.style.opacity = "0"; // Reset opacity
       
@@ -153,13 +170,22 @@
     });
 
     yesButton2.addEventListener('click', () => {
-      showOnly(loveMessage);
-      setTimeout(() => loveMessage.style.opacity = "1", 200); // Smooth fade-in
+      showOnly(foodPrompt);
     });
 
     noButton2.addEventListener('click', () => {
       alert("Try again!");
       showOnly(firstPrompt);
+    });
+
+    foodButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        showOnly(yummyMessage);
+        setTimeout(() => {
+          showOnly(loveMessage);
+          setTimeout(() => loveMessage.style.opacity = "1", 200); // Smooth fade-in
+        }, 1500); // Delay before showing final message
+      });
     });
   </script>
 </body>

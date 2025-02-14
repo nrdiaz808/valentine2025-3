@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+l<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -79,63 +79,4 @@
     }
   </style>
 </head>
-<body>
-
-  <div class="container" id="step1">
-    <h1 class="fade-in">Will you be my valentine?</h1>
-    <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="valentine-img">
-    <div class="buttons">
-      <button class="yes" onclick="showStep('step2')">Yes</button>
-      <button class="no" onclick="restart()">No</button>
-    </div>
-  </div>
-
-  <div class="container hidden" id="step2">
-    <h1 class="fade-in">Will you be my valentine forever?</h1>
-    <div class="buttons">
-      <button class="yes" onclick="showStep('step3', true)">Yes</button>
-      <button class="no" onclick="restart()">No</button>
-    </div>
-  </div>
-
-  <div class="container hidden" id="step3">
-    <h1 id="foreverMessage" class="hidden">Yay! You're my valentine forever and ever!</h1>
-    <div class="buttons hidden" id="foodSelection">
-      <h2 class="fade-in">Let's eat:</h2>
-      <button class="foodButton" onclick="showStep('step4')">KBBQ</button>
-      <button class="foodButton" onclick="showStep('step4')">Jajangmyeon</button>
-      <button class="foodButton" onclick="showStep('step4')">IDC, let's just eat</button>
-    </div>
-  </div>
-
-  <div class="container hidden" id="step4">
-    <h1 class="fade-in">Yummy!</h1>
-    <img src="https://i.postimg.cc/Xv85qFQb/IMG-1829.jpg" alt="I Love You" class="final-img">
-  </div>
-
-  <script>
-    function showStep(step, isForever = false) {
-      document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
-      document.getElementById(step).classList.remove('hidden');
-
-      if (isForever) {
-        setTimeout(() => {
-          document.getElementById('foreverMessage').classList.add('fade-in');
-          document.getElementById('foreverMessage').classList.remove('hidden');
-        }, 500);
-
-        setTimeout(() => {
-          document.getElementById('foodSelection').classList.remove('hidden');
-          document.getElementById('foodSelection').classList.add('fade-in');
-        }, 2000);
-      }
-    }
-
-    function restart() {
-      document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
-      document.getElementById('step1').classList.remove('hidden');
-    }
-  </script>
-
-</body>
-</html>
+<body

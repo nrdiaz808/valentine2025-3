@@ -29,22 +29,12 @@
       max-width: 350px;
       margin: 0 auto;
       display: none;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
     }
 
     h1 {
       color: #ff1493;
       font-size: 1.8em;
       margin: 10px 0;
-    }
-
-    .buttons {
-      margin-top: 15px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
     }
 
     button {
@@ -84,26 +74,12 @@
       max-width: 220px;
       margin-top: 10px;
     }
-
-    .fade-in {
-      opacity: 1 !important;
-    }
-
-    img {
-      width: 80%;
-      max-width: 270px;
-      margin-top: 15px;
-      border-radius: 10px;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
-    }
   </style>
 </head>
 <body>
 
   <div class="container" id="step1">
     <h1>Will you be my valentine?</h1>
-    <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear">
     <div class="buttons">
       <button class="yes" onclick="nextStep('step2')">Yes</button>
       <button class="no" onclick="showTryAgain()">No</button>
@@ -112,7 +88,6 @@
 
   <div class="container" id="step2">
     <h1>Will you be my valentine forever?</h1>
-    <img src="https://i.postimg.cc/s2rqdCbH/IMG-9927.jpg" alt="Valentine Forever">
     <div class="buttons">
       <button class="yes" onclick="nextStep('step3')">Yes</button>
       <button class="no" onclick="showTryAgain()">No</button>
@@ -121,27 +96,6 @@
 
   <div class="container" id="step3">
     <h1>Yay! You're my valentine forever and ever!</h1>
-    <img src="https://i.postimg.cc/bJBHHQPc/01-J789-AFPAADN0-FXXJ8-VWE7-ZF4-low-res-branded.jpg" alt="Valentine's Celebration">
-  </div>
-
-  <div class="container" id="step4">
-    <h1>Let's eat:</h1>
-    <img src="https://i.postimg.cc/yYdmk3XF/01-JFR2-DDBKFAD0-HG70-B9-G8-XQ39-low-res-branded.jpg" alt="Food Image">
-    <div class="buttons">
-      <button class="yes" onclick="nextStep('step5')">KBBQ</button>
-      <button class="yes" onclick="nextStep('step5')">Jajangmyeon</button>
-      <button class="yes" onclick="nextStep('step5')">IDC, let's just eat</button>
-    </div>
-  </div>
-
-  <div class="container" id="step5">
-    <h1>Yummy!</h1>
-    <img src="https://i.postimg.cc/HkFVWVBs/IMG-9301.jpg" alt="Food">
-  </div>
-
-  <div class="container" id="step6">
-    <h1>I love you! Happy Valentine’s Day ❤️</h1>
-    <img src="https://i.postimg.cc/Xv85qFQb/IMG-1829.jpg" alt="I Love You">
   </div>
 
   <div class="container" id="tryAgainContainer">
@@ -150,28 +104,13 @@
   </div>
 
   <script>
-    let steps = ["step1", "step2", "step3", "step4", "step5", "step6"];
+    let steps = ["step1", "step2", "step3"];
     let currentStep = 0;
 
     function nextStep(step) {
-      document.getElementById(steps[currentStep]).style.display = "none"; 
+      document.getElementById(steps[currentStep]).style.display = "none";
       currentStep = steps.indexOf(step);
-      let nextContainer = document.getElementById(step);
-      nextContainer.style.display = "block";
-
-      setTimeout(() => {
-        nextContainer.classList.add("fade-in");
-        let img = nextContainer.querySelector("img");
-        if (img) img.style.opacity = "1";
-      }, 100); 
-
-      if (step === "step3") {
-        setTimeout(() => nextStep("step4"), 3000); 
-      }
-
-      if (step === "step5") {
-        setTimeout(() => nextStep("step6"), 3000); 
-      }
+      document.getElementById(step).style.display = "block";
     }
 
     function restart() {
@@ -179,7 +118,6 @@
       document.getElementById("tryAgainContainer").style.display = "none"; 
       currentStep = 0;
       document.getElementById("step1").style.display = "block";
-      setTimeout(() => document.getElementById("step1").classList.add("fade-in"), 100);
     }
 
     function showTryAgain() {
@@ -188,9 +126,7 @@
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      let firstContainer = document.getElementById("step1");
-      firstContainer.style.display = "block";
-      setTimeout(() => firstContainer.classList.add("fade-in"), 100);
+      document.getElementById("step1").style.display = "block";
     });
   </script>
 

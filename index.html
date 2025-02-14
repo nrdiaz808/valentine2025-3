@@ -81,6 +81,26 @@
       width: 80%;
       max-width: 250px;
     }
+    /* Floating Heart and Flower Animation */
+    .floating {
+      position: fixed;
+      font-size: 2rem;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+    }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -137,13 +157,11 @@
 
   <script>
     function showOnly(element) {
-      // Hide all prompts
       document.querySelectorAll('.container > div').forEach(div => {
         div.classList.add('hidden');
         div.classList.remove('show');
       });
 
-      // Show the selected element and trigger fade-in
       element.classList.remove('hidden');
       setTimeout(() => element.classList.add('show'), 50);
     }
@@ -168,6 +186,18 @@
         setTimeout(() => showOnly(document.getElementById('loveMessage')), 2500);
       });
     });
+
+    function createFloatingEmoji() {
+      const emoji = document.createElement("div");
+      emoji.textContent = Math.random() > 0.5 ? "💘" : "💐";
+      emoji.classList.add("floating");
+      emoji.style.left = Math.random() * 100 + "vw";
+      emoji.style.animationDuration = Math.random() * 3 + 3 + "s";
+      document.body.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 6000);
+    }
+
+    setInterval(createFloatingEmoji, 400);
   </script>
 </body>
 </html>

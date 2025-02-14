@@ -89,14 +89,16 @@
 </head>
 <body>
   <div class="container">
-    <h1>Will You Be My Valentine?</h1>
-    <img id="valentineImage1" src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="valentine-img">
-    <div class="buttons" id="buttons1">
-      <button id="yesButton">Yes</button>
-      <button id="noButton">No</button>
+    <div id="prompt1">
+      <h1>Will You Be My Valentine?</h1>
+      <img id="valentineImage1" src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="valentine-img">
+      <div class="buttons">
+        <button id="yesButton">Yes</button>
+        <button id="noButton">No</button>
+      </div>
     </div>
 
-    <div id="foreverPrompt" class="hidden">
+    <div id="prompt2" class="hidden">
       <h2>Will you be my valentine forever?</h2>
       <div class="buttons">
         <button id="yesButton2">Yes</button>
@@ -104,7 +106,7 @@
       </div>
     </div>
 
-    <div id="letsEatPrompt" class="hidden">
+    <div id="prompt3" class="hidden">
       <h2>Let's eat!</h2>
       <div class="buttons">
         <button id="kbbqButton">KBBQ</button>
@@ -114,12 +116,12 @@
       <img src="https://i.postimg.cc/yYdmk3XF/01-JFR2-DDBKFAD0-HG70-B9-G8-XQ39-low-res-branded.jpg" alt="Food" class="valentine-img">
     </div>
 
-    <div id="yummyPrompt" class="hidden">
+    <div id="prompt4" class="hidden">
       <h2>Yummy!</h2>
       <img src="https://i.postimg.cc/HkFVWVBs/IMG-9301.jpg" alt="Yummy Food" class="valentine-img">
     </div>
 
-    <div id="finalPrompt" class="hidden">
+    <div id="prompt5" class="hidden">
       <h2>I love you! Happy Valentine's Day ❤️</h2>
       <img src="https://i.postimg.cc/Xv85qFQb/IMG-1829.jpg" alt="I Love You" class="valentine-img">
       <p>Happy Valentine’s Day!</p>
@@ -129,7 +131,7 @@
   <script>
     // Handle first "Yes" button click
     document.getElementById('yesButton').addEventListener('click', function() {
-      transitionToNext('foreverPrompt', 'buttons1');
+      transitionToNext('prompt2', 'prompt1');
     });
 
     // Handle first "No" button click
@@ -141,7 +143,7 @@
     // Handle second "Yes" button click (Forever)
     document.getElementById('yesButton2').addEventListener('click', function() {
       setTimeout(function() {
-        transitionToNext('letsEatPrompt', 'foreverPrompt');
+        transitionToNext('prompt3', 'prompt2');
       }, 1000);
     });
 
@@ -154,35 +156,35 @@
     // Handle KBBQ, Jajangmyeon, IDK button click
     document.getElementById('kbbqButton').addEventListener('click', function() {
       setTimeout(function() {
-        transitionToNext('yummyPrompt', 'letsEatPrompt');
+        transitionToNext('prompt4', 'prompt3');
       }, 1000);
     });
     document.getElementById('jajangmyeonButton').addEventListener('click', function() {
       setTimeout(function() {
-        transitionToNext('yummyPrompt', 'letsEatPrompt');
+        transitionToNext('prompt4', 'prompt3');
       }, 1000);
     });
     document.getElementById('idcButton').addEventListener('click', function() {
       setTimeout(function() {
-        transitionToNext('yummyPrompt', 'letsEatPrompt');
+        transitionToNext('prompt4', 'prompt3');
       }, 1000);
     });
 
-    // Transition to the final "I love you!" message
-    document.getElementById('yummyPrompt').addEventListener('transitionend', function() {
+    // Handle transition to final message
+    document.getElementById('prompt4').addEventListener('transitionend', function() {
       setTimeout(function() {
-        transitionToNext('finalPrompt', 'yummyPrompt');
+        transitionToNext('prompt5', 'prompt4');
       }, 2000);
     });
 
     // Reset to the start
     function resetToStart() {
-      document.getElementById('buttons1').style.display = 'block';
+      document.getElementById('prompt1').style.display = 'block';
       document.getElementById('valentineImage1').style.opacity = '1';
-      document.getElementById('foreverPrompt').classList.add('hidden');
-      document.getElementById('letsEatPrompt').classList.add('hidden');
-      document.getElementById('yummyPrompt').classList.add('hidden');
-      document.getElementById('finalPrompt').classList.add('hidden');
+      document.getElementById('prompt2').classList.add('hidden');
+      document.getElementById('prompt3').classList.add('hidden');
+      document.getElementById('prompt4').classList.add('hidden');
+      document.getElementById('prompt5').classList.add('hidden');
       document.getElementById('valentineImage1').style.opacity = '0';
     }
 

@@ -59,27 +59,26 @@
     .hidden {
       display: none;
     }
-    .valentine-img {
+    .fade-in {
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+    .valentine-img, .prompt-img {
       width: 70%;
       max-width: 120px;
       height: auto;
       margin: 8px;
       border-radius: 10px;
     }
-    .final-img, .forever-img, .food-img, .yummy-img {
+    .final-img {
       width: 90%;
       max-width: 300px;
       margin-top: 20px;
       border-radius: 10px;
     }
-    .fade-in {
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
-    }
   </style>
 </head>
 <body>
-  <audio id="loveSong" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" preload="auto"></audio>
 
   <div class="container">
     <!-- First Prompt -->
@@ -92,10 +91,19 @@
       </div>
     </div>
 
+    <!-- "Forever?" Prompt -->
+    <div id="foreverQuestion" class="hidden fade-in">
+      <h2>Forever?</h2>
+      <img src="https://i.postimg.cc/s2rqdCbH/IMG-9927.jpg" alt="Forever Image" class="prompt-img">
+      <div class="buttons">
+        <button id="yesButtonForever">Yes</button>
+      </div>
+    </div>
+
     <!-- Second Prompt (Valentine Forever) -->
-    <div id="foreverPrompt" class="hidden">
+    <div id="foreverPrompt" class="hidden fade-in">
       <h2>Yay! You’re my valentine forever and ever!</h2>
-      <img src="https://i.postimg.cc/bJBHHQPc/01-J789-AFPAADN0-FXXJ8-VWE7-ZF4-low-res-branded.jpg" alt="Valentine Forever" class="forever-img">
+      <img src="https://i.postimg.cc/bJBHHQPc/01-J789-AFPAADN0-FXXJ8-VWE7-ZF4-low-res-branded.jpg" alt="Valentine Forever" class="prompt-img">
       <div class="buttons">
         <button id="yesButton2">Yes</button>
         <button id="noButton2">No</button>
@@ -103,15 +111,15 @@
     </div>
 
     <!-- "Try Again" Message -->
-    <div id="tryAgainMessage" class="hidden">
+    <div id="tryAgainMessage" class="hidden fade-in">
       <h2>Try Again!</h2>
       <button id="backButton">Go Back</button>
     </div>
 
     <!-- Food Prompt -->
-    <div id="foodPrompt" class="hidden">
+    <div id="foodPrompt" class="hidden fade-in">
       <h2>Let's eat:</h2>
-      <img src="https://i.postimg.cc/yYdmk3XF/01-JFR2-DDBKFAD0-HG70-B9-G8-XQ39-low-res-branded.jpg" alt="Food Options" class="food-img">
+      <img src="https://i.postimg.cc/yYdmk3XF/01-JFR2-DDBKFAD0-HG70-B9-G8-XQ39-low-res-branded.jpg" alt="Food Options" class="prompt-img">
       <div class="buttons">
         <button class="foodButton">KBBQ</button>
         <button class="foodButton">Jajangmyeon</button>
@@ -120,9 +128,9 @@
     </div>
 
     <!-- Yummy Message -->
-    <div id="yummyMessage" class="hidden">
+    <div id="yummyMessage" class="hidden fade-in">
       <h2>Yummy! 😋</h2>
-      <img src="https://i.postimg.cc/HkFVWVBs/IMG-9301.jpg" alt="Delicious Food" class="yummy-img">
+      <img src="https://i.postimg.cc/HkFVWVBs/IMG-9301.jpg" alt="Yummy Food" class="prompt-img">
     </div>
 
     <!-- Final Love Message -->
@@ -137,6 +145,8 @@
     const firstPrompt = document.getElementById('firstPrompt');
     const yesButton = document.getElementById('yesButton');
     const noButton = document.getElementById('noButton');
+    const foreverQuestion = document.getElementById('foreverQuestion');
+    const yesButtonForever = document.getElementById('yesButtonForever');
     const foreverPrompt = document.getElementById('foreverPrompt');
     const tryAgainMessage = document.getElementById('tryAgainMessage');
     const backButton = document.getElementById('backButton');
@@ -146,23 +156,27 @@
     const foodButtons = document.querySelectorAll('.foodButton');
     const yummyMessage = document.getElementById('yummyMessage');
     const loveMessage = document.getElementById('loveMessage');
-    const loveSong = document.getElementById('loveSong');
 
     function showOnly(element) {
       firstPrompt.classList.add('hidden');
+      foreverQuestion.classList.add('hidden');
       foreverPrompt.classList.add('hidden');
       tryAgainMessage.classList.add('hidden');
       foodPrompt.classList.add('hidden');
       yummyMessage.classList.add('hidden');
       loveMessage.classList.add('hidden');
-      loveMessage.style.opacity = "0"; // Reset opacity
+      loveMessage.style.opacity = "0"; 
       
       element.classList.remove('hidden');
+      setTimeout(() => element.classList.add('fade-in'), 200);
     }
 
     yesButton.addEventListener('click', () => {
+      showOnly(foreverQuestion);
+    });
+
+    yesButtonForever.addEventListener('click', () => {
       showOnly(foreverPrompt);
-      loveSong.play().catch(() => console.log("Autoplay blocked, waiting for user interaction."));
     });
 
     noButton.addEventListener('click', () => {
@@ -185,10 +199,7 @@
     foodButtons.forEach(button => {
       button.addEventListener('click', () => {
         showOnly(yummyMessage);
-        setTimeout(() => {
-          showOnly(loveMessage);
-          setTimeout(() => loveMessage.style.opacity = "1", 200); // Smooth fade-in
-        }, 1500); // Delay before showing final message
+        setTimeout(() => showOnly(loveMessage), 1500);
       });
     });
   </script>

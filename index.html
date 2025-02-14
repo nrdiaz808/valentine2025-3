@@ -173,11 +173,13 @@
 
       title.style.opacity = "0";
       img.style.opacity = "0";
+      if (buttons) buttons.style.opacity = "0";
+
       setTimeout(() => {
         title.classList.add("fade-in");
         img.classList.add("fade-in");
         if (buttons) buttons.classList.add("fade-in");
-      }, 200); 
+      }, 200);
 
       generateHearts();
 
@@ -186,7 +188,7 @@
       }
 
       if (step === "step5") {
-        setTimeout(() => nextStep("step6"), 4000); // 2 seconds delay added for Yummy!
+        setTimeout(() => nextStep("step6"), 4000); // 4 seconds for transition after "Yummy!"
       }
     }
 

@@ -64,10 +64,10 @@
       display: none;
     }
     .valentine-img, .final-img, .forever-img, .food-img, .yummy-img, .valentine-forever-img {
-      width: 70%;
-      max-width: 120px;
+      width: 90%; /* Increased size while keeping it within the container */
+      max-width: 300px; /* Ensures it doesn't exceed the box */
       height: auto;
-      margin: 8px;
+      margin: 10px;
       border-radius: 10px;
     }
     .fade-in {
@@ -174,7 +174,7 @@
 
     yesButton2.addEventListener('click', () => {
       showOnly(valentineForeverMessage);
-      setTimeout(() => showOnly(foodPrompt), 3000); // Changed to 3 seconds
+      setTimeout(() => showOnly(foodPrompt), 3000);
     });
 
     noButton2.addEventListener('click', () => {

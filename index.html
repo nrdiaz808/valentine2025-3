@@ -45,11 +45,11 @@
       width: 100%;
       max-width: 220px;
     }
-    #yesButton, #yesButton2, .foodButton {
+    .yes, .foodButton {
       background-color: #ff69b4;
       color: white;
     }
-    #noButton, #noButton2 {
+    .no {
       background-color: #ff1493;
       color: white;
     }
@@ -87,24 +87,29 @@
       <h1>Will You Be My Valentine?</h1>
       <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="valentine-img">
       <div class="buttons">
-        <button id="yesButton">Yes</button>
-        <button id="noButton">No</button>
+        <button class="yes" id="yesButton">Yes</button>
+        <button class="no" id="noButton">No</button>
       </div>
     </div>
 
     <!-- Second Prompt (Valentine Forever) -->
     <div id="foreverPrompt" class="hidden">
-      <h2>Yay! You’re my valentine forever and ever!</h2>
+      <h2>Will you be my valentine forever?</h2>
       <div class="buttons">
-        <button id="yesButton2">Yes</button>
-        <button id="noButton2">No</button>
+        <button class="yes" id="yesButton2">Yes</button>
+        <button class="no" id="noButton2">No</button>
       </div>
+    </div>
+
+    <!-- "Yay!" Message -->
+    <div id="yayMessage" class="hidden">
+      <h2>Yay! You’re my valentine forever and ever! ❤️</h2>
     </div>
 
     <!-- "Try Again" Message -->
     <div id="tryAgainMessage" class="hidden">
       <h2>Try Again!</h2>
-      <button id="backButton">Go Back</button>
+      <button id="backButton">Restart</button>
     </div>
 
     <!-- Food Prompt -->
@@ -138,6 +143,7 @@
     const backButton = document.getElementById('backButton');
     const yesButton2 = document.getElementById('yesButton2');
     const noButton2 = document.getElementById('noButton2');
+    const yayMessage = document.getElementById('yayMessage');
     const foodPrompt = document.getElementById('foodPrompt');
     const foodButtons = document.querySelectorAll('.foodButton');
     const yummyMessage = document.getElementById('yummyMessage');
@@ -148,10 +154,11 @@
       firstPrompt.classList.add('hidden');
       foreverPrompt.classList.add('hidden');
       tryAgainMessage.classList.add('hidden');
+      yayMessage.classList.add('hidden');
       foodPrompt.classList.add('hidden');
       yummyMessage.classList.add('hidden');
       loveMessage.classList.add('hidden');
-      loveMessage.style.opacity = "0"; // Reset opacity
+      loveMessage.style.opacity = "0";
       
       element.classList.remove('hidden');
     }
@@ -165,16 +172,18 @@
       showOnly(tryAgainMessage);
     });
 
-    backButton.addEventListener('click', () => {
-      showOnly(firstPrompt);
-    });
-
     yesButton2.addEventListener('click', () => {
-      showOnly(foodPrompt);
+      showOnly(yayMessage);
+      setTimeout(() => {
+        showOnly(foodPrompt);
+      }, 1500);
     });
 
     noButton2.addEventListener('click', () => {
-      alert("Try again!");
+      showOnly(tryAgainMessage);
+    });
+
+    backButton.addEventListener('click', () => {
       showOnly(firstPrompt);
     });
 
@@ -183,8 +192,8 @@
         showOnly(yummyMessage);
         setTimeout(() => {
           showOnly(loveMessage);
-          setTimeout(() => loveMessage.style.opacity = "1", 200); // Smooth fade-in
-        }, 1500); // Delay before showing final message
+          setTimeout(() => loveMessage.style.opacity = "1", 200);
+        }, 1500);
       });
     });
   </script>

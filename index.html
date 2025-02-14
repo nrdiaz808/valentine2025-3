@@ -80,8 +80,6 @@
       max-width: 300px;
       margin-top: 20px;
       border-radius: 10px;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
     }
 
     .hearts {
@@ -162,32 +160,28 @@
     let steps = ["step1", "step2", "step3", "step4", "step5", "step6"];
     let currentStep = 0;
 
-    function nextStep(step) {
-      // Hide the current step container
+    function nextStep(step, delayNext = false) {
       document.getElementById(steps[currentStep]).style.display = "none"; 
       currentStep = steps.indexOf(step);
-      document.getElementById(step).style.display = "block"; // Ensure step is displayed
+      document.getElementById(step).style.display = "block";
 
-      // Apply fade-in effect to title, buttons, and image
       let title = document.querySelector(`#${step} h1`);
       let buttons = document.querySelector(`#${step} .buttons`);
-      let img = document.querySelector(`#${step} .final-img`);
 
-      title.style.opacity = "0"; // Set to 0 before fading in
-      img.style.opacity = "0";
-      if (buttons) buttons.style.opacity = "0";
-
+      title.style.opacity = "0";
       setTimeout(() => {
         title.classList.add("fade-in");
-        img.classList.add("fade-in");
         if (buttons) buttons.classList.add("fade-in");
-      }, 200);
+      }, 200); 
 
-      generateHearts(); // Hearts animation
+      generateHearts();
 
-      // Special transition for "Yummy!" to "I love you!"
+      if (delayNext) {
+        setTimeout(() => nextStep("step4"), 4000);
+      }
+
       if (step === "step5") {
-        setTimeout(() => nextStep("step6"), 4000); // 4 seconds for transition after "Yummy!"
+        setTimeout(() => nextStep("step6"), 4000); // 2 seconds delay added for Yummy!
       }
     }
 
@@ -214,7 +208,6 @@
       setTimeout(() => {
         document.querySelector("#step1 h1").classList.add("fade-in");
         document.querySelector("#step1 .buttons").classList.add("fade-in");
-        document.querySelector("#step1 .final-img").classList.add("fade-in");
       }, 200);
     });
   </script>

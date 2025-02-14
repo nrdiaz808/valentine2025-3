@@ -70,12 +70,44 @@
     .show {
       opacity: 1;
     }
+    .valentine-img, .final-img, .forever-img, .yummy-img, .valentine-forever-img {
+      width: 90%;
+      max-width: 300px;
+      height: auto;
+      margin: 10px;
+      border-radius: 10px;
+    }
+    .food-img {
+      width: 80%;
+      max-width: 250px;
+    }
+    /* Floating Hearts and Flowers Animation */
+    .floating {
+      position: fixed;
+      font-size: 3rem;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+    }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) scale(0.9);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.1);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div id="firstPrompt">
       <h1>Will You Be My Valentine?</h1>
+      <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="valentine-img">
       <div class="buttons">
         <button id="yesButton">Yes</button>
         <button id="noButton">No</button>
@@ -84,6 +116,7 @@
 
     <div id="foreverPrompt" class="hidden fade-in">
       <h2>Forever?</h2>
+      <img src="https://i.postimg.cc/s2rqdCbH/IMG-9927.jpg" alt="Forever?" class="forever-img">
       <div class="buttons">
         <button id="yesButton2">Yes</button>
         <button id="noButton2">No</button>
@@ -92,6 +125,7 @@
 
     <div id="valentineForeverMessage" class="hidden fade-in">
       <h2>Yay! You’re my Valentine forever and ever! 😘</h2>
+      <img src="https://i.postimg.cc/bJBHHQPc/01-J789-AFPAADN0-FXXJ8-VWE7-ZF4-low-res-branded.jpg" alt="Valentine Forever" class="valentine-forever-img">
     </div>
 
     <div id="tryAgainMessage" class="hidden fade-in">
@@ -104,30 +138,67 @@
       <button id="backButton2">Go Back</button>
     </div>
 
-    <script>
-      function showOnly(element) {
-        document.querySelectorAll('.container > div').forEach(div => {
-          div.classList.add('hidden');
-          div.classList.remove('show');
-        });
+    <div id="foodPrompt" class="hidden fade-in">
+      <h2>Let's eat:</h2>
+      <img src="https://i.postimg.cc/yYdmk3XF/01-JFR2-DDBKFAD0-HG70-B9-G8-XQ39-low-res-branded.jpg" alt="Food Options" class="food-img">
+      <div class="buttons">
+        <button class="foodButton">KBBQ</button>
+        <button class="foodButton">Jajangmyeon</button>
+        <button class="foodButton">IDC, let's just eat</button>
+      </div>
+    </div>
 
-        element.classList.remove('hidden');
-        setTimeout(() => element.classList.add('show'), 50);
-      }
+    <div id="yummyMessage" class="hidden fade-in">
+      <h2>Yummy! 😋</h2>
+      <img src="https://i.postimg.cc/HkFVWVBs/IMG-9301.jpg" alt="Delicious Food" class="yummy-img">
+    </div>
 
-      document.getElementById('yesButton').addEventListener('click', () => showOnly(document.getElementById('foreverPrompt')));
-      document.getElementById('noButton').addEventListener('click', () => showOnly(document.getElementById('tryAgainMessage')));
-      document.getElementById('backButton').addEventListener('click', () => showOnly(document.getElementById('firstPrompt')));
+    <div id="loveMessage" class="hidden fade-in">
+      <h2>I Love You ❤️</h2>
+      <h2>Happy Valentine’s Day!</h2>
+      <img src="https://i.postimg.cc/Xv85qFQb/IMG-1829.jpg" alt="I Love You" class="final-img">
+    </div>
+  </div>
 
-      document.getElementById('yesButton2').addEventListener('click', () => {
-        showOnly(document.getElementById('valentineForeverMessage'));
+  <script>
+    function showOnly(element) {
+      document.querySelectorAll('.container > div').forEach(div => {
+        div.classList.add('hidden');
+        div.classList.remove('show');
       });
 
-      document.getElementById('noButton2').addEventListener('click', () => {
-        showOnly(document.getElementById('tryAgainMessage2'));
-      });
+      element.classList.remove('hidden');
+      setTimeout(() => element.classList.add('show'), 50);
+    }
 
-      document.getElementById('backButton2').addEventListener('click', () => showOnly(document.getElementById('firstPrompt')));
-    </script>
+    document.getElementById('yesButton').addEventListener('click', () => showOnly(document.getElementById('foreverPrompt')));
+    document.getElementById('noButton').addEventListener('click', () => showOnly(document.getElementById('tryAgainMessage')));
+    document.getElementById('backButton').addEventListener('click', () => showOnly(document.getElementById('firstPrompt')));
+
+    document.getElementById('yesButton2').addEventListener('click', () => {
+      showOnly(document.getElementById('valentineForeverMessage'));
+      setTimeout(() => showOnly(document.getElementById('foodPrompt')), 3500);
+    });
+
+    document.querySelectorAll('.foodButton').forEach(button => {
+      button.addEventListener('click', () => {
+        showOnly(document.getElementById('yummyMessage'));
+        setTimeout(() => showOnly(document.getElementById('loveMessage')), 3000);
+      });
+    });
+
+    function createFloatingEmoji() {
+      const emoji = document.createElement("div");
+      emoji.textContent = Math.random() > 0.5 ? "💘" : "💐";
+      emoji.classList.add("floating");
+      emoji.style.left = Math.random() * 100 + "vw";
+      emoji.style.animationDuration = Math.random() * 3 + 3 + "s";
+      emoji.style.fontSize = Math.random() * 1.5 + 2.5 + "rem";
+      document.body.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 6000);
+    }
+
+    setInterval(createFloatingEmoji, 400);
+  </script>
 </body>
 </html>

@@ -86,19 +86,19 @@
       position: fixed;
       font-size: 3rem;
       animation: floatUp 6s linear infinite;
-      opacity: 0.8;
+      opacity: 1; /* Fully opaque */
     }
     @keyframes floatUp {
       0% {
         transform: translateY(100vh) scale(0.9);
-        opacity: 0;
+        opacity: 1;
       }
       50% {
         opacity: 1;
       }
       100% {
         transform: translateY(-10vh) scale(1.1);
-        opacity: 0;
+        opacity: 1;
       }
     }
   </style>
@@ -182,14 +182,25 @@
 
     document.getElementById('noButton2').addEventListener('click', () => showOnly(document.getElementById('tryAgainMessage2')));
 
-    document.getElementById('backButton2').addEventListener('click', () => showOnly(document.getElementById('firstPrompt')));
-
     document.querySelectorAll('.foodButton').forEach(button => {
       button.addEventListener('click', () => {
         showOnly(document.getElementById('yummyMessage'));
         setTimeout(() => showOnly(document.getElementById('loveMessage')), 3000);
       });
     });
+
+    function createFloatingEmoji() {
+      const emoji = document.createElement("div");
+      emoji.textContent = Math.random() > 0.5 ? "💘" : "💐";
+      emoji.classList.add("floating");
+      emoji.style.left = Math.random() * 100 + "vw";
+      emoji.style.animationDuration = Math.random() * 3 + 3 + "s";
+      emoji.style.fontSize = Math.random() * 1.5 + 2.5 + "rem"; 
+      document.body.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 6000);
+    }
+
+    setInterval(createFloatingEmoji, 400);
   </script>
 </body>
 </html>

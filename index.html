@@ -67,11 +67,6 @@
       color: white;
     }
 
-    .restart {
-      background-color: #ff4500;
-      color: white;
-    }
-
     button:active {
       transform: scale(0.95);
     }
@@ -123,7 +118,7 @@
     <img src="https://imgcdn.stablediffusionweb.com/2024/5/22/243e75e2-8744-4bc6-81e7-43eb19465d20.jpg" alt="Valentine Bear" class="final-img">
     <div class="buttons">
       <button class="yes" onclick="nextStep('step2')">Yes</button>
-      <button class="no" onclick="showTryAgain()">No</button>
+      <button class="no" onclick="restart()">No</button>
     </div>
   </div>
 
@@ -132,7 +127,7 @@
     <img src="https://i.postimg.cc/s2rqdCbH/IMG-9927.jpg" alt="Valentine Forever" class="final-img">
     <div class="buttons">
       <button class="yes" onclick="nextStep('step3', true)">Yes</button>
-      <button class="no" onclick="showTryAgain()">No</button>
+      <button class="no" onclick="restart()">No</button>
     </div>
   </div>
 
@@ -161,14 +156,6 @@
     <img src="https://i.postimg.cc/Xv85qFQb/IMG-1829.jpg" alt="I Love You" class="final-img">
   </div>
 
-  <div class="container" id="tryAgain" style="display: none;">
-    <h1>Try again!</h1>
-    <img src="https://i.postimg.cc/7LxWkLpG/sad-bear.jpg" alt="Sad Bear" class="final-img">
-    <div class="buttons">
-      <button class="restart" onclick="restart()">Restart</button>
-    </div>
-  </div>
-
   <script>
     let steps = ["step1", "step2", "step3", "step4", "step5", "step6"];
     let currentStep = 0;
@@ -194,19 +181,14 @@
       }
 
       if (step === "step5") {
-        setTimeout(() => nextStep("step6"), 4000);
+        setTimeout(() => nextStep("step6"), 4000); // 2 seconds delay added for Yummy!
       }
     }
 
     function restart() {
-      document.getElementById("tryAgain").style.display = "none";
+      document.getElementById(steps[currentStep]).style.display = "none";
       currentStep = 0;
       document.getElementById("step1").style.display = "block";
-    }
-
-    function showTryAgain() {
-      document.getElementById(steps[currentStep]).style.display = "none";
-      document.getElementById("tryAgain").style.display = "block";
     }
 
     function generateHearts() {
@@ -221,7 +203,13 @@
       }
     }
 
-    document.addEventListener("DOMContentLoaded", () => restart());
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("step1").style.display = "block";
+      setTimeout(() => {
+        document.querySelector("#step1 h1").classList.add("fade-in");
+        document.querySelector("#step1 .buttons").classList.add("fade-in");
+      }, 200);
+    });
   </script>
 
 </body>

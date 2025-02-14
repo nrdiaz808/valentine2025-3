@@ -186,9 +186,16 @@
     }
 
     function restart() {
+      // Hide the current step and reset currentStep to 0
       document.getElementById(steps[currentStep]).style.display = "none";
       currentStep = 0;
+
+      // Show the first step again
       document.getElementById("step1").style.display = "block";
+      
+      // Reset hearts (optional)
+      const hearts = document.querySelectorAll('.hearts');
+      hearts.forEach(heart => heart.remove());
     }
 
     function generateHearts() {
